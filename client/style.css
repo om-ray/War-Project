@@ -1,0 +1,20 @@
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+input {
+  margin-left: 10%;
+  margin-right: 10%;
+  border-radius: 5px;
+  border-style: ridge;
+}
+button {
+  font-family: "Courier New", Courier, monospace;
+  align-items: center;
+  border-radius: 8px;
+}

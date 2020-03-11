@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<link
+		href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
+		rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Megrim&display=swap" rel="stylesheet">
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="client/img/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="client/img/favicon-16x16.png">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>WAR</title>
+</head>
+
+<body style=" overflow: hidden;">
+	<style>
+		.center {
+			/* margin: 0; */
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			-ms-transform: translate(-50%, -50%);
+			transform: translate(-50%, -50%);
+			/* border-radius: 8px;
+  border-style: ridge;
+  border-color: #000000; */
+
+		}
+
+		.centermiddle {
+			position: absolute;
+			width: 299px;
+			height: 173px;
+			left: 1680px;
+			top: 425px;
+
+			background: rgba(0, 0, 0, 0.25);
+			border-radius: 33px;
+		}
+
+		body {
+			background-image: url(client/background.svg);
+			height: 100vh;
+			background-position: center;
+			background-size: cover;
+		}
+
+		.input {
+			margin-left: 10%;
+			margin-right: 10%;
+			border-radius: 5px;
+			border-style: ridge;
+			border-color: #000000;
+			font-family: 'montserrat';
+			font-weight: 400;
+		}
+
+		input {
+			border-style: ridge;
+			border-radius: 5px;
+			font-family: 'montserrat';
+		}
+
+		button {
+			font-family: "montserrat";
+			align-items: center;
+			border-radius: 8px;
+			border-color: #000000;
+		}
+
+		.menu {
+			display: block;
+			margin: 0 auto;
+			margin-right: 50px;
+			position: relative;
+			width: 205px;
+			border-radius: 8px;
+			border-style: ridge;
+			border-color: #000;
+			text-align: center;
+			font-family: 'montserrat';
+		}
+
+		.menu>li>a {
+			color: rgb(0, 0, 0);
+			display: block;
+			text-align: center;
+			text-decoration: none;
+		}
+
+		.menu ul {
+			background: rgb(255, 255, 255);
+			height: 0;
+			left: 0;
+			opacity: 0;
+			position: absolute;
+			transition: all .5s ease;
+			top: 35px;
+			width: 100%;
+		}
+
+		.menu li:hover ul {
+			height: 650px;
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		.menu ul a {
+			color: #000;
+			display: block;
+			padding: 5px 20px;
+		}
+
+		h4 {
+			font-family: "montserrat";
+			margin: 1%;
+		}
+
+		h2 {
+			font-family: "montserrat";
+			margin: 1%;
+		}
+
+		h1 {
+			font-family: "montserrat";
+			margin: 1%;
+		}
+
+		.timerText {
+			position: absolute;
+			width: 225px;
+			height: 43px;
+			left: 1211px;
+			top: 483px;
+
+			font-family: Montserrat;
+			font-style: normal;
+			font-weight: normal;
+			font-size: 24px;
+			line-height: 29px;
+
+			color: #000000;
+		}
+
+		#mydiv {
+			position: absolute;
+			z-index: 9;
+			background-color: #f1f1f1;
+			text-align: center;
+			border: 1px solid #d3d3d3;
+		}
+
+		#mydivheader {
+			padding: 10px;
+			cursor: move;
+			z-index: 10;
+			background-color: #2196F3;
+			color: #fff;
+		}
+	</style>
+	<div id="signDiv" style="text-align: center; font-family: 'montserrat';">
+		<div>
+			<h1 style="margin: 4%; font-family: 'Megrim'; font-size: 144px; font-weight: 600; text-align: center;">wAr
+			</h1>
+		</div>
+		<div class="center "><br><br><br>
+			<h1 style="font-family: 'montserrat'; font-weight: 10; font-size: 64px;">Welcome!</h1><br><br>
+			Email: <br><br><input class="input" id="signDiv-email" type="text"></input><br><br><br><br>
+			Password: <br><br><input class="input" id="signDiv-password" type="password"></input><br><br><br><br><br>
+			<button class="btn-primary" style="font-family: 'montserrat';" id="signDiv-signIn">Sign In</button>
+			<button style="font-family: 'montserrat';" id="signDiv-signUp">Sign Up</button><br><br><br>
+		</div>
+		<div id="verification-div"
+			style="width: 50vw; height: 50vh; background-image: url(client/img/splash-screen-bg.jpg); background-size: cover;background-color: snow; border: black; border-radius: 8px; border-style: ridge; background-repeat: no-repeat; display: none;"
+			class="center">
+			<button style="float: right; margin: 1%; background-color: skyblue;" id="verif_close">close</button>
+			<form id="verification-form" class="center">
+				Verification code:<input type="text" id="verification-input"
+					style="font-family: 'montserrat'; border-color: #000000; border-radius: 5px; margin-top: 0.5%; width: 20vw;">
+				</input>
+			</form>
+		</div>
+	</div>
+
+	<div id="mydiv">
+		<div id="mydivheader">Control Panel</div>
+		<button onclick="match();">End match</button>
+		<!-- <button onclick="match();">End match</button> -->
+	</div>
+
+	<div id="scoreDiv"
+		style="display: none;width: 50vw; height: 50vh; background-image: url(client/img/splash-screen-bg.jpg); background-size: cover;background-color: snow; border: black; border-radius: 8px; border-style: ridge; background-repeat: no-repeat; display: none;"
+		class="center">
+		<h1 style="font-family: 'montserrat';" class="center">Scores</h1>
+		<button style="float: right; margin: 1%; background-color: skyblue;" id="score_close">close</button>
+		<ol id="scoreol"></ol>
+	</div>
+	<div id="tieDiv"
+		style="display: none;width: 50vw; height: 50vh; background-image: url(client/img/splash-screen-bg.jpg); background-size: cover;background-color: snow; border: black; border-radius: 8px; border-style: ridge; background-repeat: no-repeat; display: none;"
+		class="center modal">
+		<h1 style="font-family: 'montserrat';margin: 0.5%;" class="center">You had a tie!</h1>
+		<button style="float: right; margin: 1%; background-color: skyblue;" id="tie_close">close</button>
+		<h2>You tied with:</h2><br>
+		<h4 id="emailTie"></h4>
+		<h2>With a score of:</h2><br>
+		<h4 id="scoreTie"></h4>
+	</div>
+	<div id="winDiv"
+		style="display: none;width: 50vw; height: 50vh; background-image: url(client/img/splash-screen-bg.jpg); background-size: cover;background-color: snow; border: black; border-radius: 8px; border-style: ridge; background-repeat: no-repeat; display: none;"
+		class="center modal">
+		<h1 style="font-family: 'montserrat';margin: 0.5%;" class="center">You Won!</h1>
+		<button style="float: right; margin: 1%; background-color: skyblue;" id="winDiv_close">close</button>
+		<h2>Your score was:</h2><br>
+		<h4 id="scoreWin"></h4>
+
+	</div>
+	<div id="matchDone"
+		style="display: none;width: 50vw; height: 50vh; background-image: url(client/img/splash-screen-bg.jpg); background-size: cover;background-color: snow; border: black; border-radius: 8px; border-style: ridge; background-repeat: no-repeat; display: none;"
+		class="center modal">
+		<button style="float: right; margin: 1%; background-color: skyblue;" id="matchDiv_close">close</button>
+		<h1>Match is Done. New match will start in ~ 1 minute.</h1>
+	</div>
+
+	<div id="gameDiv" style="display:none; margin: 0.5%;overflow: hidden;">
+		<canvas id="ctx" width="800px" height="800px"
+			style="border-color: #000000; border-radius: 5px; border-style: ridge;background-color: gray;"></canvas>
+
+		<div id="chat-text"
+			style="width:805px;height:100px;overflow-y:scroll; font-family: 'montserrat'; border-color: #000000; border-radius: 5px; border-style: ridge;">
+			<div style="margin: 0.5%;">Welcome to War!</div>
+		</div>
+
+		<form id="chat-form">
+			<input id="chat-input" type="text"
+				style="width:805px; font-family: 'montserrat'; border-color: #000000; border-radius: 5px; margin-top: 0.5%;"></input>
+		</form>
+
+
+	</div>
+	<!-- <button onclick="match();">end match</button> -->
+	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+	<script>
+		var WIDTH = 800;
+		var HEIGHT = 800;
+		var socket = io();
+
+		dragElement(document.getElementById("mydiv"));
+
+		function dragElement(elmnt) {
+			var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+			if (document.getElementById(elmnt.id + "header")) {
+				/* if present, the header is where you move the DIV from:*/
+				document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+			} else {
+				/* otherwise, move the DIV from anywhere inside the DIV:*/
+				elmnt.onmousedown = dragMouseDown;
+			}
+
+			function dragMouseDown(e) {
+				e = e || window.event;
+				e.preventDefault();
+				// get the mouse cursor position at startup:
+				pos3 = e.clientX;
+				pos4 = e.clientY;
+				document.onmouseup = closeDragElement;
+				// call a function whenever the cursor moves:
+				document.onmousemove = elementDrag;
+			}
+
+			function elementDrag(e) {
+				e = e || window.event;
+				e.preventDefault();
+				// calculate the new cursor position:
+				pos1 = pos3 - e.clientX;
+				pos2 = pos4 - e.clientY;
+				pos3 = e.clientX;
+				pos4 = e.clientY;
+				// set the element's new position:
+				elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+				elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+			}
+
+			function closeDragElement() {
+				/* stop moving when mouse button is released:*/
+				document.onmouseup = null;
+				document.onmousemove = null;
+			}
+		}
+		//sign
+		var signDiv = document.getElementById('signDiv');
+		var signDivEmail = document.getElementById('signDiv-email');
+		var signDivSignIn = document.getElementById('signDiv-signIn');
+		var signDivSignUp = document.getElementById('signDiv-signUp');
+		var signDivPassword = document.getElementById('signDiv-password');
+		var verificationDiv = document.getElementById('verification-div');
+		var verificationInput = document.getElementById('verification-input');
+		var verifClose = document.getElementById('verif_close');
+		var scoreClose = document.getElementById('score_close');
+		var scoreDiv = document.getElementById('scoreDiv');
+		// var scoreSecond = document.getElementById('second').innerHTML = '';
+		// var scoreThird = document.getElementById('third').innerHTML = '';
+
+		if (signDivEmail.value != null && signDivPassword.value != null) {
+			signDivSignIn.onclick = function () {
+				socket.emit('signIn', {
+					email: signDivEmail.value,
+					password: signDivPassword.value
+				});
+			}
+			signDivSignUp.onclick = function () {
+				socket.emit('signUp', {
+					email: signDivEmail.value,
+					password: signDivPassword.value
+				});
+			}
+		}
+
+		function verification_code() {
+			if (verificationInput != null) {
+				socket.emit('verify', {
+					code: verificationInput.value
+				})
+			}
+		}
+		socket.on("max_score", function (a) {
+			// console.log(a)
+			// var scoreFirst = document.getElementById('first').innerHTML = a;
+			var scorelist = document.createElement("LI");
+			var scoreheading = document.createElement("H4");
+			var headingnode = document.createTextNode(a);
+			scoreheading.appendChild(headingnode);
+			scorelist.appendChild(scoreheading);
+			scoreol.appendChild(scorelist);
+
+		})
+
+		verifClose.onclick = function () {
+			verificationDiv.style.display = 'none'
+		}
+		scoreClose.onclick = function () {
+			scoreDiv.style.display = 'none'
+		}
+		winDiv_close.onclick = function () {
+			winDiv.style.display = 'none'
+		}
+		tie_close.onclick = function () {
+			tieDiv.style.display = 'none'
+		}
+		matchDiv_close.onclick = function () {
+			matchDone.style.display = 'none'
+		}
+
+		// function verification_code() {
+		// 	var verification = window.prompt("Please enter verification code", "recieved in email")
+		// 	if (verification != null) {
+		// 		console.log("Sending this code to server:", verification);
+		// 		socket.emit("verify", verification, {
+		// 			email: signDivEmail.value
+		// 		});
+		// 	};
+		// }
+
+		socket.on('signInResponse', function (data) {
+			if (data.success) {
+				signDiv.style.display = 'none';
+				gameDiv.style.display = 'inline-block';
+				mapdiv.style.display = "inline-block";
+				leaderboardDiv.style.display = "inline-block";
+				timer.style.display = 'inline-block';
+				timerBox.style.display = 'inline-block';
+				// addToLeaderboard();
+				socket.on("addToLeaderboard", function (res) {
+					console.log(res)
+					addToLeaderboard(res.email, res.score)
+				})
+				sendIp();
+			} else
+				alert("Sign in unsuccessful.");
+		});
+		socket.on('signUpResponse', function (data) {
+			if (data.success) {
+				verificationDiv.style.display = 'inline-block';
+				alert("Sign up successful.");
+				// addToLeaderboard();
+				socket.on("addToLeaderboard", function (res) {
+					addToLeaderboard(res.email, res.score)
+				})
+				sendIp();
+
+			} else
+				alert("Sign up unsuccessful.");
+		});
+		//chat
+		var chatText = document.getElementById('chat-text');
+		var chatInput = document.getElementById('chat-input');
+		var chatForm = document.getElementById('chat-form');
+
+		var addToLeaderboard = function (email, score) {
+			score = Player.list[selfId].score;
+			var table_row = document.createElement("TR");
+			var table_data_place_ol = document.createElement("OL");
+			var table_data_place_li = document.createElement("LI");
+			var table_data_score = document.createElement("TD");
+			var table_data_email = document.createElement("TD");
+			var scoreNode = document.createTextNode(score);
+			var emailNode = document.createTextNode(email);
+			table_data_score.appendChild(scoreNode);
+			table_data_email.appendChild(emailNode);
+			leaderboard_table.appendChild(table_data_score);
+			leaderboard_table.appendChild(table_data_email);
+			leaderboard_table.appendChild(table_row);
+		}
+
+		socket.on('addToChat', function (data) {
+			chatText.innerHTML += '<div>' + data + '</div>';
+		});
+		socket.on('evalAnswer', function (data) {
+			console.log(data);
+		});
+
+
+		chatForm.onsubmit = function (e) {
+			e.preventDefault();
+			if (chatInput.value[0] === '/')
+				socket.emit('evalServer', chatInput.value.slice(1));
+			else
+				socket.emit('sendMsgToServer', chatInput.value);
+			chatInput.value = '';
+		}
+
+		//game
+		var Img = {};
+		Img.player = new Image();
+		Img.player.src = '/client/img/player2spritesheet.png';
+		Img.bullet = new Image();
+		Img.bullet.src = '/client/img/bullet.png';
+		Img.map = new Image();
+		Img.map.src = '/client/img/map.png';
+
+		var ctx = document.getElementById("ctx").getContext("2d");
+		ctx.font = '30px Arial';
+
+		var Player = function (initPack) {
+			var self = {};
+			self.id = initPack.id;
+			self.number = initPack.number;
+			self.x = initPack.x;
+			self.y = initPack.y;
+			self.hp = initPack.hp;
+			self.hpMax = initPack.hpMax;
+			self.score = initPack.score;
+			self.sx = 0;
+			self.sy = 0;
+
+			self.draw = function () {
+				var x = self.x - Player.list[selfId].x + WIDTH / 2;
+				var y = self.y - Player.list[selfId].y + HEIGHT / 2;
+
+				var hpWidth = 30 * self.hp / self.hpMax;
+				ctx.fillStyle = 'red';
+				ctx.fillRect(x - hpWidth / 2, y - 50, hpWidth, 4);
+
+				var width = 32 * 2;
+				var height = 48 * 2;
+
+
+				ctx.drawImage(Img.player,
+					self.sx, self.sy, 32, 48,
+					x - width / 2, y - height / 2, width, height);
+
+				//ctx.fillText(self.score,self.x,self.y-60);
+			}
+			self.resetSx = function () {
+				if (self.sx >= 64) {
+					self.sx = 0;
+				}
+			}
+
+			Player.list[self.id] = self;
+
+
+			return self;
+		}
+		Player.list = {};
+
+
+		var Bullet = function (initPack) {
+			var self = {};
+			self.id = initPack.id;
+			self.x = initPack.x;
+			self.y = initPack.y;
+
+			self.draw = function () {
+				var width = Img.bullet.width / 2;
+				var height = Img.bullet.height / 2;
+
+				var x = self.x - Player.list[selfId].x + WIDTH / 2;
+				var y = self.y - Player.list[selfId].y + HEIGHT / 2;
+
+				ctx.drawImage(Img.bullet,
+					0, 0, Img.bullet.width, Img.bullet.height,
+					x - width / 2, y - height / 2, width, height);
+			}
+
+			Bullet.list[self.id] = self;
+			return self;
+		}
+		Bullet.list = {};
+
+		var selfId = null;
+
+		socket.on('init', function (data) {
+			if (data.selfId)
+				selfId = data.selfId;
+			//{ player : [{id:123,number:'1',x:0,y:0},{id:1,number:'2',x:0,y:0}], bullet: []}
+			for (var i = 0; i < data.player.length; i++) {
+				new Player(data.player[i]);
+			}
+			for (var i = 0; i < data.bullet.length; i++) {
+				new Bullet(data.bullet[i]);
+			}
+		});
+
+		socket.on("hpDown", function () {
+			sendHp();
+		})
+
+		socket.on('update', function (data) {
+			//{ player : [{id:123,x:0,y:0},{id:1,x:0,y:0}], bullet: []}
+
+			for (var i = 0; i < data.player.length; i++) {
+				var pack = data.player[i];
+				var p = Player.list[pack.id];
+				if (p) {
+					if (pack.x !== undefined)
+						p.x = pack.x;
+					if (pack.y !== undefined)
+						p.y = pack.y;
+					if (pack.hp !== undefined) {
+						p.hp = pack.hp;
+					}
+					if (pack.score !== undefined) {
+						p.score = pack.score;
+					}
+				}
+			}
+			for (var i = 0; i < data.bullet.length; i++) {
+				var pack = data.bullet[i];
+				var b = Bullet.list[data.bullet[i].id];
+				if (b) {
+					if (pack.x !== undefined)
+						b.x = pack.x;
+					if (pack.y !== undefined)
+						b.y = pack.y;
+				}
+			}
+		});
+
+		socket.on('remove', function (data) {
+			//{player:[12323],bullet:[12323,123123]}
+			for (var i = 0; i < data.player.length; i++) {
+				delete Player.list[data.player[i]];
+			}
+			for (var i = 0; i < data.bullet.length; i++) {
+				delete Bullet.list[data.bullet[i]];
+			}
+		});
+
+		setInterval(function () {
+			if (!selfId)
+				return;
+			ctx.clearRect(0, 0, 900, 900);
+			drawMap();
+			drawScore();
+			for (var i in Player.list) {
+				Player.list[i].draw();
+				Player.list[i].resetSx();
+			}
+			for (var i in Bullet.list)
+				Bullet.list[i].draw();
+			saveToLocalStorage();
+		}, 55);
+		// setInterval(function () {
+
+
+
+		var match = function () {
+			for (var i in Player.list) {
+				matchDone.style.display = 'inline-block'
+				scoreDiv.style.display = 'inline-block';
+				socket.emit("score", [{ score: Player.list[i].score, email: signDivEmail.value }]);
+				socket.on("won", function (winners) {
+					winDiv.style.display = "inline-block";
+					console.log(winners);
+					scoreWin.innerHTML = winners.score;
+				});
+				socket.on("tie", function (winners) {
+					tieDiv.style.display = "inline-block";
+					emailTie.innerHTML = winners.winners;
+					scoreTie.innerHTML = winners.score;
+					console.log(winners);
+				});
+			};
+		};
+		// }, 300000);
+
+		var saveToLocalStorage = function () {
+			for (var i in Player.list) {
+				var email = JSON.stringify(signDivEmail.value);
+				var score = JSON.stringify(Player.list[selfId].score);
+				var hp = JSON.stringify(Player.list[selfId].hp);
+				console.log("Saving:" + " " + email + ", " + score + ", and" + " " + hp + " to localStorage");
+				window.localStorage.setItem('email', email);
+				window.localStorage.setItem('score', score);
+				window.localStorage.setItem('hp', hp);
+			}
+		}
+
+		var drawMap = function () {
+			var x = WIDTH / 2 - Player.list[selfId].x;
+			var y = HEIGHT / 2 - Player.list[selfId].y;
+			ctx.drawImage(Img.map, x, y);
+		}
+
+		var changemap1 = function () {
+			Img.map.src = '/client/img/map.png';
+		}
+		var changemap2 = function () {
+			Img.map.src = '/client/img/JupiterMap.png';
+		}
+		var changemap3 = function () {
+			Img.map.src = '/client/img/SaturnMap.png';
+		}
+
+		var drawScore = function () {
+			ctx.fillStyle = 'black';
+			ctx.fillText(' ' + Player.list[selfId].score, 0, 30);
+		}
+
+
+
+		// for (var i in Player.list) {
+		// 	Math.max(...Player.list[i].score(o => o.y), 0);
+		// 		console.log(a);
+		// }
+		document.onkeydown = function (event) {
+			if (event.keyCode === 68) { //d
+				Player.list[selfId].sx += 32;
+				Player.list[selfId].sy = 96;
+				socket.emit('keyPress', {
+					inputId: 'right',
+					state: true
+				});
+			} else if (event.keyCode === 83) { //s
+				Player.list[selfId].sx += 32;
+				Player.list[selfId].sy = 0;
+				socket.emit('keyPress', {
+					inputId: 'down',
+					state: true
+				});
+			} else if (event.keyCode === 65) { //a
+				Player.list[selfId].sx += 32;
+				Player.list[selfId].sy = 48;
+				socket.emit('keyPress', {
+					inputId: 'left',
+					state: true
+				});
+			} else if (event.keyCode === 87) { // w
+				Player.list[selfId].sx += 32;
+				Player.list[selfId].sy = 144;
+				socket.emit('keyPress', {
+					inputId: 'up',
+					state: true
+				});
+			}
+			if (event.keyCode === 32) {
+				socket.emit('keyPress', {
+					inputId: 'attack',
+					state: true
+				});
+			}
+
+		}
+		document.onkeyup = function (event) {
+			if (event.keyCode === 68) { //d
+				Player.list[selfId].sx = 0;
+				socket.emit('keyPress', {
+					inputId: 'right',
+					state: false
+				});
+			} else if (event.keyCode === 83) { //s
+				Player.list[selfId].sx = 0;
+				socket.emit('keyPress', {
+					inputId: 'down',
+					state: false
+				});
+			} else if (event.keyCode === 65) { //a
+				Player.list[selfId].sx = 0;
+				socket.emit('keyPress', {
+					inputId: 'left',
+					state: false
+				});
+			} else if (event.keyCode === 87) { // w
+				Player.list[selfId].sx = 0;
+				socket.emit('keyPress', {
+					inputId: 'up',
+					state: false
+				});
+			}
+			if (event.keyCode === 32) {
+				socket.emit('keyPress', {
+					inputId: 'attack',
+					state: false
+				});
+			}
+		}
+
+		// document.onmousedown = function (event) {
+		// 	socket.emit('keyPress', {
+		// 		inputId: 'attack',
+		// 		state: true
+		// 	});
+		// }
+		// document.onmouseup = function (event) {
+		// 	socket.emit('keyPress', {
+		// 		inputId: 'attack',
+		// 		state: false
+		// 	});
+		// }
+		document.onmousemove = function (event) {
+			var x = -400 + event.clientX - 8;
+			var y = -400 + event.clientY - 8;
+			var angle = Math.atan2(y, x) / Math.PI * 180;
+			socket.emit('keyPress', {
+				inputId: 'mouseAngle',
+				state: angle
+			});
+		}
+		var sendIp = function () {
+			fetch('https://api.ipify.org?format=json')
+				.then(results => results.json())
+				.then(function (data) {
+					console.log(data.ip);
+					var email = signDivEmail.value
+					fetch(`http://ip-api.com/json/${data.ip}?fields=status,message,country,regionName,city`)
+						.then(res => res.json())
+						.then(function (geolocation) {
+
+							socket.emit("IP", {
+								ip: data.ip,
+								email: email,
+								hp: Player.list[selfId].hp,
+								score: Player.list[selfId].score,
+								country: geolocation.country,
+								regionName: geolocation.regionName,
+								city: geolocation.city
+							});
+						})
+				})
+		}
+
+	</script>
+	<div id="mapdiv" style="float: right; display: none; margin: 0.5%;">
+		<button type="button" class="btn btn-default" data-toggle="collapse" data-target="#maps"
+			style="width: 105px;">Maps</button>
+		<div class="collapse" id="maps" style="margin: 0.5%;">
+			<img onclick="changemap1()" class="image-fluid" style="width: 100px;margin: 0.5%;"
+				src="/client/img/earth.png">
+			</button>
+			<br>
+			<img onclick="changemap2()" class="image-fluid" style="width: 100px;margin: 0.5%;"
+				src="/client/img/jupiter.png">
+			</button>
+			<br>
+			<img onclick="changemap3()" class="image-fluid" style="width: 100px;margin: 0.5%;"
+				src="/client/img/saturn.png">
+			</button>
+		</div>
+		</button>
+	</div>
+	<div id="leaderboardDiv" style="float: right; display: none; margin-top: 0.5%;">
+		<button type="button" class="btn btn-default" data-toggle="collapse"
+			data-target="#leaderboard">Leaderboard</button>
+
+		<div id="leaderboard" class="table collapsible collapse in"
+			style="font-family: 'montserrat'; width: fit-content;">
+
+			<table id="leaderboard_table" class="table table-striped table-bordered pr">
+				<thead>
+					<tr>
+						<th scope="col">Score</th>
+						<th scope="col">Email</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div style="position: absolute;width: 299px;height: 173px;background: rgba(0, 0, 0, 0.25);border-radius: 53px 0px 0px 53px;
+	float: right;display: none; margin-top: 50vh; margin-left: 43vw;" id="timerBox">
+		<h2 style="margin-right: 3vw;font-size: 18px;margin-left: 9vh;margin-top: 5vh;" id="matchText"></h2>
+		<div id="timer" style="display: none;float: right; font-family: montserrat;font-size: xx-large;" class="center">
+		</div>
+		<!-- <button onclick="localStorage.clear();">clear localStorage</button> -->
+	</div>
+	<script>
+
+		countdown(300)
+		function countdown(seconds) {
+			seconds = parseInt(localStorage.getItem("seconds")) || seconds;
+			matchText.innerHTML = "Match ends in: "
+			function tick() {
+				seconds--;
+				localStorage.setItem("seconds", seconds)
+				var counter = document.getElementById("timer");
+				var current_minutes = parseInt(seconds / 60);
+				var current_seconds = seconds % 60;
+				counter.innerHTML = current_minutes + ":" + (current_seconds < 10 ? "0" : "") + current_seconds;
+				if (seconds > 0) {
+					setTimeout(tick, 1000);
+				} else if (seconds <= 0) {
+					between(60);
+					match();
+				}
+			}
+			tick();
+		}
+
+		function between(seconds2) {
+			seconds2 = parseInt(localStorage.getItem("seconds2")) || seconds2;
+			matchText.innerHTML = "Match starts in: "
+
+			function tick2() {
+				seconds2--;
+				localStorage.setItem("seconds2", seconds2)
+				var counter = document.getElementById("timer");
+				var current_minutes = parseInt(seconds2 / 60);
+				var current_seconds2 = seconds2 % 60;
+				counter.innerHTML = current_minutes + ":" + (current_seconds2 < 10 ? "0" : "") + current_seconds2;
+				if (seconds2 > 0) {
+					setTimeout(tick2, 1000);
+				} else if (seconds2 <= 0) {
+					reset();
+				}
+			}
+			tick2();
+		}
+
+		function reset() {
+			// countdown(60);
+			countdown(300);
+		}
+
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+problem solving -->
+1. *if it's in your code, look how it works* IF NOT, FIND AN EXAMPLE ONLINE
+2. *Investigate all the code in the problem* (breaking down each, each, each step. but don't go so deep to library level,
+ that's when usually some nerd did that and posted online)
+3. *by investigating, now I have a better idea of what to look on the internet for* 
+
+
+error --> data is weird -> 
+                            1. Tried modifying the weird data so the client side was good -> didn't work
+                            2. Kept trying to modify data that was weird.
+                            3. Why did you think modifying the data would magically cause the data to appear there?
+                            4. Bc I didn't understand why the data showed '[object Object]'
+                            5. But then I did look up what this weird data was
+                            6. They said bc it wasn't a string
+                            7. SO the data did print properly when stringfied. But it was the wrong data.
+                            8. So my brain was like if it wasn't stringfied then the data was the wrong format.
+                            9. *Took from internet and misunderstood.*
+
+
+
+Example of working through problems quickly.
+1. First deatil the problem in english 
+
+Ex. Problem: Trying to find the max value of a certain property of a array of SON Objects.
+
+2. What are different solutions (the one that's quickest and something that you know is certain is best)
+Ex. Certain Solution of something you've done in the past in finding the max value of something?
+    Solution: Math.max finds the max value of an array (when array is combined with spread operator.)
+
+3. Does this solution work right out of the box? If not, why?
+Ex. What were trying to do is find the max value of a JSON Object, not an array.
+
+4. Condense the problem for why the solution from step 2 doesn't work into a succinct problem.
+Ex. The JSON object is not an array.
+
+5. What are different solutions (the one that's quickest and something that you know is certain is best)
+Ex. Take a certain property and push that into a different array.
+
+6. So if you combine, step 5 with step 2, does this solve your initial problem?
+Ex. Yes.
+
+7. Test the assumption in 6. If it does not work, find the new problem, or mistake in the solution proposed earlier and revise.
+
+
+--- Proposed solution ---
+Use Math.max on an array of the certain property you need from the JSON Object converted to an array.
+This is a bit confusing -- let's break it down into easy steps 
+1. Take the JSON Object and push all of a certain property into an array.
+2. Use Math.max w/ the spread operator on that array.
+
+8. Did it work? If so, what was the solution? 
+Ex. Yes.
+-------------------------------------------------------------------------------------------------------------------------------------------
+New Problem ----
+1. First deatil the problem in english 
+Ex. Problem: I have an array of JSON Objects and i want to find the 
+key that has a higher value than all of the others and find the other key in that JSON Object.
+
+I need to get the (other property)? that is associated with the value that you get when you push
+a property from a JSON object in a sepearte array.
+
+2. What are different solutions (the one that's quickest and something that you know is certain is best)
+Ex. Certain Solution of something you've done in the past in finding another key in a JSON Object?
+    Solution: use an if statement to check whether the array index of that certain property is equal to the
+    maximum value that was derived in the first problem.
+
+3. Does this solution work right out of the box? If not, why?
+Ex. Yes.
+
+4. What are different solutions (the one that's quickest and something that you know is certain is best)
+Ex. Look to 2.
+
+--- Proposed solution ---
+use an if statement to check whether the array index of that certain property is equal to the
+maximum value that was derived in the first problem.

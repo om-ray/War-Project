@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <title>Admin Panel</title>
+</head>
+
+<body>
+    <script>
+        var socket = io();
+        var hp;
+        var e;
+        var mW;
+        var Ip;
+        var geoLocation;
+
+        // email = window.localStorage.getItem("email");
+        // health = window.localStorage.getItem("hp");
+        // matchesWon = window.localStorage.getItem("score")
+        socket.emit("gimmeDaInfo")
+
+        socket.on("userInfo", function (res) {
+            var userInfo = JSON.parse(res)
+            console.log((userInfo));
+            for (var i in userInfo) {
+                console.log(i);
+                hp = userInfo[i].hp;
+                e = userInfo[i].email;
+                mW = userInfo[i].score;
+                Ip = userInfo[i].Ip;
+                geoLocation = userInfo[i].country + ", " + userInfo[i].regionName + ", " + userInfo[i].city;
+                getUsers();
+            }
+            // socket.emit("gimmeDaInfo")
+        })
+
+        // var getIP = function () {
+        //     fetch('https://api.ipify.org?format=json')
+        //         .then(results => results.json())
+        //         .then(data => ip = data.ip);
+        // }
+
+        var getUsers = function () {
+            var table_row = document.createElement("TR");
+            var table_data_hp = document.createElement("TD");
+            var table_data_e = document.createElement("TD");
+            var table_data_mW = document.createElement("TD");
+            var table_data_Ip = document.createElement("TD");
+            var table_data_geoLocation = document.createElement("TD");
+            var hpNode = document.createTextNode(hp);
+            var eNode = document.createTextNode(e);
+            var mWNode = document.createTextNode(mW);
+            var IpNode = document.createTextNode(Ip);
+            var geoLocationNode = document.createTextNode(geoLocation);
+            table_data_hp.appendChild(hpNode);
+            table_data_e.appendChild(eNode);
+            table_data_mW.appendChild(mWNode);
+            table_data_Ip.appendChild(IpNode);
+            table_data_geoLocation.appendChild(geoLocationNode);
+            adminTable.appendChild(table_data_hp);
+            adminTable.appendChild(table_data_e);
+            adminTable.appendChild(table_data_mW);
+            adminTable.appendChild(table_data_Ip);
+            adminTable.appendChild(table_data_geoLocation);
+            adminTable.appendChild(table_row);
+        }
+
+        var refresh = function () {
+            location.reload();
+            // socket.emit("gimmeDaInfo")
+        }
+
+    </script>
+    <br>
+    <h1 style="text-align: center;"><u>Admin Panel</u></h1>
+    <br>
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <div class="btn-group btn-group-xs" role="group" aria-label="Basic example">
+                    <button onclick=" getUsers();" type="button" type="button" class="btn btn-primary btn-sm">Get
+                        Users <i class="fa fa-download"></i></button>
+                    <button onclick="refresh();" type="button" type="button" class="btn btn-success btn-sm">Refresh <i
+                            class="fa fa-refresh"></i></button>
+                </div>
+
+            </div>
+        </div>
+        <br>
+        <div class="jumbotron">
+            <table id="adminTable" class="table table-striped">
+                <tr>
+                    <th>Health</th>
+                    <th>Email</th>
+                    <th>Score</th>
+                    <th>IP</th>
+                    <th>Geolocation</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
