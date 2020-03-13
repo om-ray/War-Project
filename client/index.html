@@ -188,10 +188,10 @@
 		</div>
 	</div>
 
-	<div id="mydiv">
+	<div id="mydiv" style="display: none;">
 		<div id="mydivheader">Control Panel</div>
-		<button onclick="match();">End match</button>
-		<!-- <button onclick="match();">End match</button> -->
+		<button onclick="match();">End match</button><br>
+		<button onclick="addToLeaderboard();">Add to leaderboard</button>
 	</div>
 
 	<div id="scoreDiv"
@@ -374,48 +374,75 @@
 				leaderboardDiv.style.display = "inline-block";
 				timer.style.display = 'inline-block';
 				timerBox.style.display = 'inline-block';
-				// addToLeaderboard();
-				socket.on("addToLeaderboard", function (res) {
-					console.log(res)
-					addToLeaderboard(res.email, res.score)
+				var email = signDivEmail.value
+				addToLeaderboard(email);
+				console.log("email:", email)
+				socket.on("addToLeaderboard", function () {
+					socket.emit("adding to leaderboard", { email: email, score: Player.list[selfId].score });
 				})
 				sendIp();
 			} else
 				alert("Sign in unsuccessful.");
 		});
+
+		socket.on("players info", function (res) {
+			console.log("player info:", res);
+			addToLeaderboard(res.email, res.score);
+
+		});
+		socket.on("update score", function (data) {
+			updateLeaderboard(data.email, data.score);
+		});
+		var updateLeaderboard = function (email, score) {
+			console.log("updating leaderboard");
+
+			// for (var i in Email) {
+			var Email = document.getElementsByClassName("emailTableData");
+			var Score = document.getElementsByClassName("scoreTableData");
+			// console.log();
+
+			// Email.forEach(checkEmail);
+			// function checkEmail() {
+			for (var u in Email) {
+				if (Email[u].innerHTML == email) {
+					console.log("updating leaderboard")
+					Score[u].innerHTML = score
+				}
+				// }
+			}
+			// }
+		}
 		socket.on('signUpResponse', function (data) {
 			if (data.success) {
 				verificationDiv.style.display = 'inline-block';
 				alert("Sign up successful.");
 				// addToLeaderboard();
-				socket.on("addToLeaderboard", function (res) {
-					addToLeaderboard(res.email, res.score)
-				})
 				sendIp();
 
 			} else
 				alert("Sign up unsuccessful.");
 		});
-		//chat
 		var chatText = document.getElementById('chat-text');
 		var chatInput = document.getElementById('chat-input');
 		var chatForm = document.getElementById('chat-form');
 
 		var addToLeaderboard = function (email, score) {
-			score = Player.list[selfId].score;
 			var table_row = document.createElement("TR");
 			var table_data_place_ol = document.createElement("OL");
 			var table_data_place_li = document.createElement("LI");
 			var table_data_score = document.createElement("TD");
 			var table_data_email = document.createElement("TD");
-			var scoreNode = document.createTextNode(score);
+			var scoreNode = document.createTextNode((score == undefined) ? 0 : score);
 			var emailNode = document.createTextNode(email);
 			table_data_score.appendChild(scoreNode);
 			table_data_email.appendChild(emailNode);
-			leaderboard_table.appendChild(table_data_score);
-			leaderboard_table.appendChild(table_data_email);
-			leaderboard_table.appendChild(table_row);
+			leaderboard_table_body.appendChild(table_data_score);
+			table_data_score.setAttribute("class", "scoreTableData");
+			table_data_email.setAttribute("class", "emailTableData");
+			leaderboard_table_body.appendChild(table_data_email);
+			leaderboard_table_body.appendChild(table_row);
 		}
+
 
 		socket.on('addToChat', function (data) {
 			chatText.innerHTML += '<div>' + data + '</div>';
@@ -423,7 +450,6 @@
 		socket.on('evalAnswer', function (data) {
 			console.log(data);
 		});
-
 
 		chatForm.onsubmit = function (e) {
 			e.preventDefault();
@@ -578,6 +604,7 @@
 			ctx.clearRect(0, 0, 900, 900);
 			drawMap();
 			drawScore();
+			// addToLeaderboard();
 			for (var i in Player.list) {
 				Player.list[i].draw();
 				Player.list[i].resetSx();
@@ -798,7 +825,7 @@
 						<th scope="col">Email</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id="leaderboard_table_body">
 				</tbody>
 			</table>
 		</div>

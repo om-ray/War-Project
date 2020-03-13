@@ -178,7 +178,10 @@ var Bullet = function(parent, angle) {
 
         if (p.hp <= 0) {
           var shooter = Player.list[self.parent];
-          if (shooter) shooter.score += 1;
+          if (shooter) {
+            shooter.score += 1;
+            updateScore(shooter);
+          }
           p.hp = p.hpMax;
           p.x = Math.random() * 900;
           p.y = Math.random() * 900;
@@ -312,6 +315,19 @@ io.sockets.on("connection", function(socket) {
   socket.id = Math.random();
   SOCKET_LIST[socket.id] = socket;
   // console.log(JSON.stringify(db.account.find()));
+
+  updateScore = function(shooter) {
+    db.account.find({ _id: shooter.id }, function(err, shooter_accounts) {
+      if (shooter_accounts.length > 0) {
+        let shooter_account = shooter_accounts[0];
+        io.emit("update score", {
+          email: shooter_account.email,
+          score: shooter.score
+        });
+      }
+    });
+  };
+
   socket.on("gimmeDaInfo", function() {
     console.log("searching");
     db.account.find(function(err, res) {
@@ -438,7 +454,7 @@ io.sockets.on("connection", function(socket) {
       if (isValid) {
         Player.onConnect(socket, player._id);
         socket.emit("signInResponse", { success: true });
-        socket.emit("addToLeaderboard", { email: data.email });
+        socket.emit("addToLeaderboard");
       } else {
         socket.emit("signInResponse", { success: false });
       }
@@ -455,13 +471,31 @@ io.sockets.on("connection", function(socket) {
         data.code = Math.floor(100000 + Math.random() * 900000);
         addUser(data, function() {
           console.log("added user");
-          socket.emit("addToLeaderboard", db.account.find());
           socket.emit("signUpResponse", { success: true });
         });
         sendVerificationCode(data);
       }
     });
   });
+
+  socket.on("adding to leaderboard", function(data) {
+    db.account.find(
+      { email: { $ne: data.email } },
+      function(err, res) {
+        console.log("res:", res);
+        for (var i in res) {
+          socket.emit("players info", {
+            email: res[i].email,
+            score: res[i].score
+          });
+        }
+      },
+      function(err) {
+        console.log(err);
+      }
+    );
+  });
+
   socket.on("disconnect", function() {
     delete SOCKET_LIST[socket.id];
     Player.onDisconnect(socket);
@@ -492,11 +526,11 @@ io.sockets.on("connection", function(socket) {
     socket.emit("timer");
   };
 });
-var match;
+// var match;
 var timer;
 setInterval(function() {
   console.log("match starting!");
-  match();
+  // match();
   timer();
 }, 300000);
 
