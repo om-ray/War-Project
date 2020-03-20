@@ -1,20 +1,142 @@
 .center {
-  margin: 0;
+  /* margin: 0; */
   position: absolute;
   top: 50%;
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+  /* border-radius: 8px;
+border-style: ridge;
+border-color: #000000; */
 }
 
-input {
+.centermiddle {
+  position: absolute;
+  width: 299px;
+  height: 173px;
+  left: 1680px;
+  top: 425px;
+
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 33px;
+}
+
+body {
+  background-image: url(/background.svg);
+  height: 100vh;
+  background-position: center;
+  background-size: cover;
+}
+
+.input {
   margin-left: 10%;
   margin-right: 10%;
   border-radius: 5px;
   border-style: ridge;
+  border-color: #000000;
+  font-family: "montserrat";
+  font-weight: 400;
 }
+
+input {
+  border-style: ridge;
+  border-radius: 5px;
+  font-family: "montserrat";
+}
+
 button {
-  font-family: "Courier New", Courier, monospace;
+  font-family: "montserrat";
   align-items: center;
   border-radius: 8px;
+  border-color: #000000;
+}
+
+.menu {
+  display: block;
+  margin: 0 auto;
+  margin-right: 50px;
+  position: relative;
+  width: 205px;
+  border-radius: 8px;
+  border-style: ridge;
+  border-color: #000;
+  text-align: center;
+  font-family: "montserrat";
+}
+
+.menu > li > a {
+  color: rgb(0, 0, 0);
+  display: block;
+  text-align: center;
+  text-decoration: none;
+}
+
+.menu ul {
+  background: rgb(255, 255, 255);
+  height: 0;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  transition: all 0.5s ease;
+  top: 35px;
+  width: 100%;
+}
+
+.menu li:hover ul {
+  height: 650px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.menu ul a {
+  color: #000;
+  display: block;
+  padding: 5px 20px;
+}
+
+h4 {
+  font-family: "montserrat";
+  margin: 1%;
+}
+
+h2 {
+  font-family: "montserrat";
+  margin: 1%;
+}
+
+h1 {
+  font-family: "montserrat";
+  margin: 1%;
+}
+
+.timerText {
+  position: absolute;
+  width: 225px;
+  height: 43px;
+  left: 1211px;
+  top: 483px;
+
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 29px;
+
+  color: #000000;
+}
+
+#mydiv {
+  position: absolute;
+  z-index: 9;
+  background-color: #f1f1f1;
+  text-align: center;
+  border: 1px solid #d3d3d3;
+}
+
+#mydivheader {
+  padding: 10px;
+  cursor: move;
+  z-index: 10;
+  background-color: #2196f3;
+  color: #fff;
 }
