@@ -140,3 +140,16 @@ h1 {
   background-color: #2196f3;
   color: #fff;
 }
+
+#verification-div {
+  width: 50vw;
+  height: 50vh;
+  background-image: url(/img/splash-screen-bg.jpg);
+  background-size: cover;
+  background-color: snow;
+  border: black;
+  border-radius: 8px;
+  border-style: ridge;
+  background-repeat: no-repeat;
+  display: none;
+}

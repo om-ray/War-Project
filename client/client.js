@@ -76,13 +76,6 @@ if (signDivEmail.value != null && signDivPassword.value != null) {
   };
 }
 
-function verification_code() {
-  if (verificationInput != null) {
-    socket.emit("verify", {
-      code: verificationInput.value
-    });
-  }
-}
 socket.on("max_score", function(a) {
   // console.log(a)
   // var scoreFirst = document.getElementById('first').innerHTML = a;
@@ -94,9 +87,6 @@ socket.on("max_score", function(a) {
   scoreol.appendChild(scorelist);
 });
 
-verifClose.onclick = function() {
-  verificationDiv.style.display = "none";
-};
 scoreClose.onclick = function() {
   scoreDiv.style.display = "none";
 };
@@ -132,6 +122,8 @@ socket.on("signInResponse", function(data) {
     addToLeaderboard(email);
     console.log("email:", email);
     socket.on("addToLeaderboard", function() {
+      fixRanking(email, Player.list[selfId].score);
+
       socket.emit("adding to leaderboard", {
         email: email,
         score: Player.list[selfId].score
@@ -141,35 +133,99 @@ socket.on("signInResponse", function(data) {
   } else alert("Sign in unsuccessful.");
 });
 
+socket.on("input verification code", function() {
+  verificationDiv.style.display = "flex";
+  verifClose.onclick = function() {
+    if (verificationDiv.value != null) {
+      verificationDiv.style.display = "none";
+      socket.emit("here is the verification code", {
+        verification_code: verificationDiv.value
+      });
+    } else {
+      alert("You didn't type anything In");
+    }
+  };
+});
+
 socket.on("players info", function(res) {
   console.log("player info:", res);
   addToLeaderboard(res.email, res.score);
 });
 socket.on("update score", function(data) {
-  updateLeaderboard(data.email, data.score);
+  fixScores(data.email, data.score);
+  fixRanking(data.email, data.score);
 });
-var updateLeaderboard = function(email, score) {
+var fixScores = function(email, score) {
   console.log("updating leaderboard");
 
   // for (var i in Email) {
   var Email = document.getElementsByClassName("emailTableData");
   var Score = document.getElementsByClassName("scoreTableData");
-  // console.log();
 
-  // Email.forEach(checkEmail);
-  // function checkEmail() {
   for (var u in Email) {
     if (Email[u].innerHTML == email) {
       console.log("updating leaderboard");
       Score[u].innerHTML = score;
     }
-    // }
   }
-  // }
 };
+var emailAndScoreArray = [];
+function fixRanking(email, score) {
+  var Email = document.getElementsByClassName("emailTableData");
+  var Score = document.getElementsByClassName("scoreTableData");
+  //pushing email and score into emailAndScoreArray
+  var pushToArray = function(email, score) {
+    emailAndScoreArray.push({ email: email, score: score });
+  };
+  //removing duplicates from array
+  var removeDupes = function() {
+    for (var i = emailAndScoreArray.length - 1; i > 0; i--) {
+      console.log("emailAndScoreArray: ", emailAndScoreArray);
+      if (emailAndScoreArray.length > 1) {
+        console.log("emailAndScoreArray.length: ", emailAndScoreArray.length);
+        console.log("i: ", i, " i - 1: ", i - 1);
+        if (emailAndScoreArray[i].email === emailAndScoreArray[i - 1].email) {
+          if (emailAndScoreArray[i].score <= emailAndScoreArray[i - 1].score) {
+            emailAndScoreArray.splice(i, 1);
+          } else if (
+            emailAndScoreArray[i].score >= emailAndScoreArray[i - 1].score
+          ) {
+            emailAndScoreArray.splice(i - 1, 1);
+          }
+        }
+      }
+    }
+  };
+  //sorting array
+  var sortArray = function() {
+    console.log("emailAndScoreArray sorted: ", emailAndScoreArray);
+    emailAndScoreArray.sort((a, b) => b.score - a.score);
+  };
+
+  //fixing the leaderboard ranking
+  var setLeaderboard = function() {
+    for (var o = 0; o < emailAndScoreArray.length; o++) {
+      console.log("o: ", o);
+
+      Email[o].innerHTML = emailAndScoreArray[o].email;
+      Score[o].innerHTML = emailAndScoreArray[o].score;
+    }
+  };
+  //calling all the functions
+  //pushes to array
+  pushToArray(email, score);
+  //removes duplicates
+  removeDupes();
+  //sorts array
+  sortArray();
+  //makes sure there are no duplicates
+  removeDupes();
+  //updates the leaderboard
+  setLeaderboard();
+}
+
 socket.on("signUpResponse", function(data) {
   if (data.success) {
-    verificationDiv.style.display = "inline-block";
     alert("Sign up successful.");
     // addToLeaderboard();
     sendIp();

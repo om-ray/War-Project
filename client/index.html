@@ -11,8 +11,8 @@
 		rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Megrim&display=swap" rel="stylesheet">
 	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="client/img/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="client/img/favicon-16x16.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -32,9 +32,7 @@
 			<button class="btn-primary" style="font-family: 'montserrat';" id="signDiv-signIn">Sign In</button>
 			<button style="font-family: 'montserrat';" id="signDiv-signUp">Sign Up</button><br><br><br>
 		</div>
-		<div id="verification-div"
-			style="width: 50vw; height: 50vh; background-image: url(/img/splash-screen-bg.jpg); background-size: cover;background-color: snow; border: black; border-radius: 8px; border-style: ridge; background-repeat: no-repeat; display: none;"
-			class="center">
+		<div id="verification-div" class="center">
 			<button style="float: right; margin: 1%; background-color: skyblue;" id="verif_close">close</button>
 			<form id="verification-form" class="center">
 				Verification code:<input type="text" id="verification-input"
@@ -104,16 +102,13 @@
 		<button type="button" class="btn btn-default" data-toggle="collapse" data-target="#maps"
 			style="width: 105px;">Maps</button>
 		<div class="collapse" id="maps" style="margin: 0.5%;">
-			<img onclick="changemap1()" class="image-fluid" style="width: 100px;margin: 0.5%;"
-				src="/img/earth.png">
+			<img onclick="changemap1()" class="image-fluid" style="width: 100px;margin: 0.5%;" src="/img/earth.png">
 			</button>
 			<br>
-			<img onclick="changemap2()" class="image-fluid" style="width: 100px;margin: 0.5%;"
-				src="/img/jupiter.png">
+			<img onclick="changemap2()" class="image-fluid" style="width: 100px;margin: 0.5%;" src="/img/jupiter.png">
 			</button>
 			<br>
-			<img onclick="changemap3()" class="image-fluid" style="width: 100px;margin: 0.5%;"
-				src="/img/saturn.png">
+			<img onclick="changemap3()" class="image-fluid" style="width: 100px;margin: 0.5%;" src="/img/saturn.png">
 			</button>
 		</div>
 		</button>
@@ -138,7 +133,7 @@
 		</div>
 	</div>
 	<div style="position: absolute;width: 299px;height: 173px;background: rgba(0, 0, 0, 0.25);border-radius: 53px 0px 0px 53px;
-	float: right;display: none; margin-top: 50vh; margin-left: 43vw;" id="timerBox">
+	float: right;display: none; top: 50vh; right: 0;" id="timerBox">
 		<h2 style="margin-right: 3vw;font-size: 18px;margin-left: 9vh;margin-top: 5vh;" id="matchText"></h2>
 		<div id="timer" style="display: none;float: right; font-family: montserrat;font-size: xx-large;" class="center">
 		</div>

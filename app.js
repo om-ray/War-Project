@@ -183,8 +183,8 @@ var Bullet = function(parent, angle) {
             updateScore(shooter);
           }
           p.hp = p.hpMax;
-          p.x = Math.random() * 900;
-          p.y = Math.random() * 900;
+          p.x = Math.random() * 1800;
+          p.y = Math.random() * 1800;
         }
         self.toRemove = true;
       }
@@ -266,8 +266,9 @@ var addUser = function(data, cb) {
       password: data.password,
       code: data.code,
       score: data.score,
-      matchesWon: data.matchesWon,
-      ties: data.ties,
+      matchesWon: 0,
+      ties: 0,
+      verified: false,
       hp: data.hp,
       Ip: data.ip,
       country: data.country,
@@ -287,7 +288,7 @@ var sendVerificationCode = function(data) {
     secure: false, // true for 965, false for other ports
     auth: {
       user: "omihridesh@gmail.com", // generated ethereal user
-      pass: "aq123edsMI." // generated ethereal password
+      pass: "aq123edsMI.changed" // generated ethereal password
     },
     tls: {
       rejectUnauthorized: false
@@ -439,16 +440,6 @@ io.sockets.on("connection", function(socket) {
     }
   });
 
-  socket.on("verify", function(verification_code) {
-    isCorrectVerificationCode(verification_code, function(res) {
-      if (res) {
-        socket.emit("signInResponse", { success: true });
-      } else {
-        socket.emit("signInResponse", { success: false });
-      }
-    });
-  });
-
   socket.on("signIn", function(data) {
     isValidPassword(data, function(isValid, player) {
       if (isValid) {
@@ -469,11 +460,24 @@ io.sockets.on("connection", function(socket) {
         socket.emit("signUpResponse", { success: false });
       } else {
         data.code = Math.floor(100000 + Math.random() * 900000);
+        sendVerificationCode(data);
         addUser(data, function() {
           console.log("added user");
-          socket.emit("signUpResponse", { success: true });
+          socket.emit("input verification code");
+          socket.on("here is the verification code", function(code) {
+            isCorrectVerificationCode(code.verification_code, function(
+              err,
+              res
+            ) {
+              if (cb) {
+                socket.emit("signUpResponse", { success: true });
+              } else if (cb == false) {
+                socket.emit("signUpResponse", { success: false });
+                console.error;
+              }
+            });
+          });
         });
-        sendVerificationCode(data);
       }
     });
   });
