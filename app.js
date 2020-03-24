@@ -437,6 +437,7 @@ io.sockets.on("connection", function(socket) {
           );
 
           db.progress.find({ email: score[i].email }, function(err, res) {
+            console.log(res);
             if (res > 0) {
               var date = new Date();
               db.progress.update(
@@ -453,13 +454,11 @@ io.sockets.on("connection", function(socket) {
                 }
               );
             } else {
-              db.progress.insert(
-                { email: score[i].email },
-                {
-                  NumberOfMatchesWon: 0,
-                  MostRecentWin: null
-                }
-              );
+              db.progress.insert({
+                email: score[i].email,
+                NumberOfMatchesWon: 0,
+                MostRecentWin: null
+              });
             }
           });
           socket.emit("won", { score: maximumScore });
