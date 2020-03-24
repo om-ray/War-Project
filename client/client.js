@@ -130,16 +130,24 @@ socket.on("signInResponse", function(data) {
       });
     });
     sendIp();
-  } else alert("Sign in unsuccessful.");
+  } else {
+    alert(
+      "Sign in unsuccessful. Please make sure that you have created an account and have verified you account"
+    );
+    socket.emit("i did not verify")
+  }
 });
 
 socket.on("input verification code", function() {
   verificationDiv.style.display = "flex";
   verifClose.onclick = function() {
-    if (verificationDiv.value != null) {
+    console.log(verificationInput.value);
+
+    if (verificationInput.value != null) {
       verificationDiv.style.display = "none";
       socket.emit("here is the verification code", {
-        verification_code: verificationDiv.value
+        verification_code: verificationInput.value,
+        email: signDivEmail.value
       });
     } else {
       alert("You didn't type anything In");

@@ -242,14 +242,15 @@ var isValidPassword = function(data, cb) {
     else cb(false);
   });
 };
-var isCorrectVerificationCode = function(verification_code, cb) {
-  db.account.find(
-    { code: verification_code, email: verification_code.email },
-    function(err, res) {
-      if (res.length > 0) cb(true);
-      else cb(false);
-    }
-  );
+var isCorrectVerificationCode = function(email, verification_code, cb) {
+  console.log("isCorrectVC: ", verification_code, "email: ", email);
+  db.account.find({ email: email }, function(err, res) {
+    if (res[0].code == verification_code) {
+      console.log("going here???");
+      // console.log("res: ", res);
+      cb(true);
+    } else cb(false);
+  });
 };
 var isEmailTaken = function(data, cb) {
   db.account.find({ email: data.email }, function(err, res) {
@@ -434,6 +435,33 @@ io.sockets.on("connection", function(socket) {
               console.error;
             }
           );
+
+          db.progress.find({ email: score[i].email }, function(err, res) {
+            if (res > 0) {
+              var date = new Date();
+              db.progress.update(
+                {
+                  email: score[i].email
+                },
+                {
+                  $inc: {
+                    NumberOfMatchesWon: 1
+                  },
+                  $set: {
+                    MostRecentWin: date
+                  }
+                }
+              );
+            } else {
+              db.progress.insert(
+                { email: score[i].email },
+                {
+                  NumberOfMatchesWon: 0,
+                  MostRecentWin: null
+                }
+              );
+            }
+          });
           socket.emit("won", { score: maximumScore });
         }
       }
@@ -441,14 +469,19 @@ io.sockets.on("connection", function(socket) {
   });
 
   socket.on("signIn", function(data) {
-    isValidPassword(data, function(isValid, player) {
-      if (isValid) {
-        Player.onConnect(socket, player._id);
-        socket.emit("signInResponse", { success: true });
-        socket.emit("addToLeaderboard");
-      } else {
-        socket.emit("signInResponse", { success: false });
-      }
+    db.account.find({ email: data.email }, function(err, res) {
+      isValidPassword(data, function(isValid, player) {
+        if (isValid && res[0].verified == true) {
+          Player.onConnect(socket, player._id);
+          socket.emit("signInResponse", { success: true });
+          socket.emit("addToLeaderboard");
+        } else {
+          socket.emit("signInResponse", { success: false });
+          socket.on("i did not verify", function() {
+            socket.emit("input verification code");
+          });
+        }
+      });
     });
   });
   socket.on("signUp", function(data) {
@@ -463,19 +496,36 @@ io.sockets.on("connection", function(socket) {
         sendVerificationCode(data);
         addUser(data, function() {
           console.log("added user");
+
           socket.emit("input verification code");
           socket.on("here is the verification code", function(code) {
-            isCorrectVerificationCode(code.verification_code, function(
-              err,
-              res
-            ) {
-              if (cb) {
-                socket.emit("signUpResponse", { success: true });
-              } else if (cb == false) {
-                socket.emit("signUpResponse", { success: false });
-                console.error;
+            console.log("recieved verification code: ", code.verification_code);
+
+            isCorrectVerificationCode(
+              code.email,
+              code.verification_code,
+              function(res) {
+                console.log("res: ", res);
+                if (res) {
+                  db.account.update(
+                    { email: code.email },
+                    {
+                      $set: {
+                        verified: true
+                      }
+                    },
+                    function(err) {
+                      console.log("updated");
+                      if (err) console.error(err);
+                      socket.emit("signUpResponse", { success: true });
+                    }
+                  );
+                } else if (res == false) {
+                  socket.emit("signUpResponse", { success: false });
+                  console.error;
+                }
               }
-            });
+            );
           });
         });
       }
