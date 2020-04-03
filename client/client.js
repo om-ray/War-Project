@@ -62,21 +62,21 @@ var scoreDiv = document.getElementById("scoreDiv");
 // var scoreThird = document.getElementById('third').innerHTML = '';
 
 if (signDivEmail.value != null && signDivPassword.value != null) {
-  signDivSignIn.onclick = function() {
+  signDivSignIn.onclick = function () {
     socket.emit("signIn", {
       email: signDivEmail.value,
-      password: signDivPassword.value
+      password: signDivPassword.value,
     });
   };
-  signDivSignUp.onclick = function() {
+  signDivSignUp.onclick = function () {
     socket.emit("signUp", {
       email: signDivEmail.value,
-      password: signDivPassword.value
+      password: signDivPassword.value,
     });
   };
 }
 
-socket.on("max_score", function(a) {
+socket.on("max_score", function (a) {
   // console.log(a)
   // var scoreFirst = document.getElementById('first').innerHTML = a;
   var scorelist = document.createElement("LI");
@@ -87,16 +87,16 @@ socket.on("max_score", function(a) {
   scoreol.appendChild(scorelist);
 });
 
-scoreClose.onclick = function() {
+scoreClose.onclick = function () {
   scoreDiv.style.display = "none";
 };
-winDiv_close.onclick = function() {
+winDiv_close.onclick = function () {
   winDiv.style.display = "none";
 };
-tie_close.onclick = function() {
+tie_close.onclick = function () {
   tieDiv.style.display = "none";
 };
-matchDiv_close.onclick = function() {
+matchDiv_close.onclick = function () {
   matchDone.style.display = "none";
 };
 
@@ -110,7 +110,7 @@ matchDiv_close.onclick = function() {
 // 	};
 // }
 
-socket.on("signInResponse", function(data) {
+socket.on("signInResponse", function (data) {
   if (data.success) {
     signDiv.style.display = "none";
     gameDiv.style.display = "inline-block";
@@ -121,12 +121,31 @@ socket.on("signInResponse", function(data) {
     var email = signDivEmail.value;
     addToLeaderboard(email);
     console.log("email:", email);
-    socket.on("addToLeaderboard", function() {
+    socket.on("addToLeaderboard", function () {
       fixRanking(email, Player.list[selfId].score);
+      socket.on("current time", function (current_time) {
+        var minutes = current_time.minutes;
+        var seconds = current_time.seconds;
+        var counter = document.getElementById("timer");
+        var counter_text = document.getElementById("matchText");
+
+        counter.innerHTML = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+        counter_text.innerHTML = "Match ends in:";
+      });
+
+      socket.on("current time2", function (current_time) {
+        var minutes = current_time.minutes;
+        var seconds = current_time.seconds;
+        var counter = document.getElementById("timer");
+        var counter_text = document.getElementById("matchText");
+
+        counter.innerHTML = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+        counter_text.innerHTML = "Match starts in:";
+      });
 
       socket.emit("adding to leaderboard", {
         email: email,
-        score: Player.list[selfId].score
+        score: Player.list[selfId].score,
       });
     });
     sendIp();
@@ -134,20 +153,20 @@ socket.on("signInResponse", function(data) {
     alert(
       "Sign in unsuccessful. Please make sure that you have created an account and have verified you account"
     );
-    socket.emit("i did not verify")
+    socket.emit("i did not verify");
   }
 });
 
-socket.on("input verification code", function() {
+socket.on("input verification code", function () {
   verificationDiv.style.display = "flex";
-  verifClose.onclick = function() {
+  verifClose.onclick = function () {
     console.log(verificationInput.value);
 
     if (verificationInput.value != null) {
       verificationDiv.style.display = "none";
       socket.emit("here is the verification code", {
         verification_code: verificationInput.value,
-        email: signDivEmail.value
+        email: signDivEmail.value,
       });
     } else {
       alert("You didn't type anything In");
@@ -155,15 +174,15 @@ socket.on("input verification code", function() {
   };
 });
 
-socket.on("players info", function(res) {
+socket.on("players info", function (res) {
   console.log("player info:", res);
   addToLeaderboard(res.email, res.score);
 });
-socket.on("update score", function(data) {
+socket.on("update score", function (data) {
   fixScores(data.email, data.score);
   fixRanking(data.email, data.score);
 });
-var fixScores = function(email, score) {
+var fixScores = function (email, score) {
   console.log("updating leaderboard");
 
   // for (var i in Email) {
@@ -182,11 +201,11 @@ function fixRanking(email, score) {
   var Email = document.getElementsByClassName("emailTableData");
   var Score = document.getElementsByClassName("scoreTableData");
   //pushing email and score into emailAndScoreArray
-  var pushToArray = function(email, score) {
+  var pushToArray = function (email, score) {
     emailAndScoreArray.push({ email: email, score: score });
   };
   //removing duplicates from array
-  var removeDupes = function() {
+  var removeDupes = function () {
     for (var i = emailAndScoreArray.length - 1; i > 0; i--) {
       console.log("emailAndScoreArray: ", emailAndScoreArray);
       if (emailAndScoreArray.length > 1) {
@@ -205,13 +224,13 @@ function fixRanking(email, score) {
     }
   };
   //sorting array
-  var sortArray = function() {
+  var sortArray = function () {
     console.log("emailAndScoreArray sorted: ", emailAndScoreArray);
     emailAndScoreArray.sort((a, b) => b.score - a.score);
   };
 
   //fixing the leaderboard ranking
-  var setLeaderboard = function() {
+  var setLeaderboard = function () {
     for (var o = 0; o < emailAndScoreArray.length; o++) {
       console.log("o: ", o);
 
@@ -232,7 +251,7 @@ function fixRanking(email, score) {
   setLeaderboard();
 }
 
-socket.on("signUpResponse", function(data) {
+socket.on("signUpResponse", function (data) {
   if (data.success) {
     alert("Sign up successful.");
     // addToLeaderboard();
@@ -243,10 +262,10 @@ var chatText = document.getElementById("chat-text");
 var chatInput = document.getElementById("chat-input");
 var chatForm = document.getElementById("chat-form");
 
-var addToLeaderboard = function(email, score) {
+var addToLeaderboard = function (email, score) {
   var table_row = document.createElement("TR");
-  var table_data_place_ol = document.createElement("OL");
-  var table_data_place_li = document.createElement("LI");
+  // var table_data_place_ol = document.createElement("OL");
+  // var table_data_place_li = document.createElement("LI");
   var table_data_score = document.createElement("TD");
   var table_data_email = document.createElement("TD");
   var scoreNode = document.createTextNode(score == undefined ? 0 : score);
@@ -260,14 +279,14 @@ var addToLeaderboard = function(email, score) {
   leaderboard_table_body.appendChild(table_row);
 };
 
-socket.on("addToChat", function(data) {
+socket.on("addToChat", function (data) {
   chatText.innerHTML += "<div>" + data + "</div>";
 });
-socket.on("evalAnswer", function(data) {
+socket.on("evalAnswer", function (data) {
   console.log(data);
 });
 
-chatForm.onsubmit = function(e) {
+chatForm.onsubmit = function (e) {
   e.preventDefault();
   if (chatInput.value[0] === "/")
     socket.emit("evalServer", chatInput.value.slice(1));
@@ -276,6 +295,52 @@ chatForm.onsubmit = function(e) {
 };
 
 //game
+var tileset = new Image();
+var startX;
+var startY;
+var clippingWidth;
+var clippingHeight;
+var placeX = 0;
+var placeY = 0;
+var mapJson;
+tileset.src = "/img/final_tileset.jpg";
+
+var xmlhttp = new XMLHttpRequest();
+
+xmlhttp.onreadystatechange = function () {
+  if (this.readyState == 4 && this.status == 200) {
+    mapJson = JSON.parse(this.responseText);
+  }
+};
+xmlhttp.open("GET", "img/WarMap.json", true);
+xmlhttp.send();
+updateTileData = function () {
+  // placeX++;
+  // console.log(mapJson);
+  for (var i = 0; i < mapJson.layers.length; i += 1) {
+    for (var u = 0; u < mapJson.layers[i].data.length; u += 1) {
+      var dataValues = mapJson.layers[i].data[u] - 1;
+      startX = (dataValues % 11) * 32;
+      startY = Math.floor(dataValues / 11) * 32;
+      clippingWidth = 32;
+      clippingHeight = 32;
+      placeX = (u % mapJson.layers[i].width) * 32;
+      placeY = Math.floor(u / mapJson.layers[i].height) * 32;
+
+      ctx.drawImage(
+        tileset,
+        startX,
+        startY,
+        clippingWidth,
+        clippingHeight,
+        placeX - Player.list[selfId].x,
+        placeY - Player.list[selfId].y,
+        clippingWidth,
+        clippingHeight
+      );
+    }
+  }
+};
 var Img = {};
 Img.player = new Image();
 Img.player.src = "/img/player2spritesheet.png";
@@ -287,7 +352,7 @@ Img.map.src = "/img/map.png";
 var ctx = document.getElementById("ctx").getContext("2d");
 ctx.font = "30px Arial";
 
-var Player = function(initPack) {
+var Player = function (initPack) {
   var self = {};
   self.id = initPack.id;
   self.number = initPack.number;
@@ -299,7 +364,7 @@ var Player = function(initPack) {
   self.sx = 0;
   self.sy = 0;
 
-  self.draw = function() {
+  self.draw = function () {
     var x = self.x - Player.list[selfId].x + WIDTH / 2;
     var y = self.y - Player.list[selfId].y + HEIGHT / 2;
 
@@ -324,7 +389,7 @@ var Player = function(initPack) {
 
     //ctx.fillText(self.score,self.x,self.y-60);
   };
-  self.resetSx = function() {
+  self.resetSx = function () {
     if (self.sx >= 64) {
       self.sx = 0;
     }
@@ -336,13 +401,13 @@ var Player = function(initPack) {
 };
 Player.list = {};
 
-var Bullet = function(initPack) {
+var Bullet = function (initPack) {
   var self = {};
   self.id = initPack.id;
   self.x = initPack.x;
   self.y = initPack.y;
 
-  self.draw = function() {
+  self.draw = function () {
     var width = Img.bullet.width / 2;
     var height = Img.bullet.height / 2;
 
@@ -369,7 +434,7 @@ Bullet.list = {};
 
 var selfId = null;
 
-socket.on("init", function(data) {
+socket.on("init", function (data) {
   if (data.selfId) selfId = data.selfId;
   //{ player : [{id:123,number:'1',x:0,y:0},{id:1,number:'2',x:0,y:0}], bullet: []}
   for (var i = 0; i < data.player.length; i++) {
@@ -380,11 +445,11 @@ socket.on("init", function(data) {
   }
 });
 
-socket.on("hpDown", function() {
+socket.on("hpDown", function () {
   sendHp();
 });
 
-socket.on("update", function(data) {
+socket.on("update", function (data) {
   //{ player : [{id:123,x:0,y:0},{id:1,x:0,y:0}], bullet: []}
 
   for (var i = 0; i < data.player.length; i++) {
@@ -411,7 +476,7 @@ socket.on("update", function(data) {
   }
 });
 
-socket.on("remove", function(data) {
+socket.on("remove", function (data) {
   //{player:[12323],bullet:[12323,123123]}
   for (var i = 0; i < data.player.length; i++) {
     delete Player.list[data.player[i]];
@@ -421,11 +486,65 @@ socket.on("remove", function(data) {
   }
 });
 
-setInterval(function() {
+const fps = {
+  sampleSize: 60,
+  value: 0,
+  _sample_: [],
+  _index_: 0,
+  _lastTick_: false,
+  tick: function () {
+    // if is first tick, just set tick timestamp and return
+    if (!this._lastTick_) {
+      this._lastTick_ = performance.now();
+      return 0;
+    }
+    // calculate necessary values to obtain current tick FPS
+    let now = performance.now();
+    let delta = (now - this._lastTick_) / 1000;
+    let fps = 1 / delta;
+    // add to fps samples, current tick fps value
+    this._sample_[this._index_] = Math.round(fps);
+
+    // iterate samples to obtain the average
+    let average = 0;
+    for (i = 0; i < this._sample_.length; i++) average += this._sample_[i];
+
+    average = Math.round(average / this._sample_.length);
+
+    // set new FPS
+    this.value = average;
+    // store current timestamp
+    this._lastTick_ = now;
+    // increase sample index counter, and reset it
+    // to 0 if exceded maximum sampleSize limit
+    this._index_++;
+    if (this._index_ === this.sampleSize) this._index_ = 0;
+    return this.value;
+  },
+};
+
+function loop() {
+  let fpsValue = fps.tick();
+  window.fps.innerHTML = fpsValue;
+  requestAnimationFrame(loop);
+}
+// set FPS calulation based in the last 120 loop cicles
+fps.sampleSize = 120;
+// start loop
+loop();
+
+setInterval(function () {
   if (!selfId) return;
-  ctx.clearRect(0, 0, 900, 900);
-  drawMap();
+  ctx.clearRect(0, 0, WIDTH, HEIGHT);
+  updateTileData();
   drawScore();
+  console.log("startX: ", startX);
+  console.log("startY: ", startY);
+  // console.log("clippingWidth: ", clippingWidth);
+  // console.log("clippingHeight: ", clippingHeight);
+  console.log("placeX: ", placeX);
+  console.log("placeY: ", placeY);
+
   // addToLeaderboard();
   for (var i in Player.list) {
     Player.list[i].draw();
@@ -436,67 +555,59 @@ setInterval(function() {
 }, 55);
 // setInterval(function () {
 
-var match = function() {
+socket.on("match", function () {
   for (var i in Player.list) {
     matchDone.style.display = "inline-block";
     scoreDiv.style.display = "inline-block";
     socket.emit("score", [
-      { score: Player.list[i].score, email: signDivEmail.value }
+      { score: Player.list[i].score, email: signDivEmail.value },
     ]);
-    socket.on("won", function(winners) {
+    socket.on("won", function (winners) {
       winDiv.style.display = "inline-block";
       console.log(winners);
       scoreWin.innerHTML = winners.score;
     });
-    socket.on("tie", function(winners) {
+    socket.on("tie", function (winners) {
       tieDiv.style.display = "inline-block";
       emailTie.innerHTML = winners.winners;
       scoreTie.innerHTML = winners.score;
       console.log(winners);
     });
   }
-};
+});
 // }, 300000);
 
-var saveToLocalStorage = function() {
-  for (var i in Player.list) {
-    var email = JSON.stringify(signDivEmail.value);
-    var score = JSON.stringify(Player.list[selfId].score);
-    var hp = JSON.stringify(Player.list[selfId].hp);
-    console.log(
-      "Saving:" +
-        " " +
-        email +
-        ", " +
-        score +
-        ", and" +
-        " " +
-        hp +
-        " to localStorage"
-    );
-    window.localStorage.setItem("email", email);
-    window.localStorage.setItem("score", score);
-    window.localStorage.setItem("hp", hp);
-  }
+var saveToLocalStorage = function () {
+  var email = JSON.stringify(signDivEmail.value);
+  var score = JSON.stringify(Player.list[selfId].score);
+  var hp = JSON.stringify(Player.list[selfId].hp);
+  // console.log(
+  //   "Saving:" +
+  //     " " +
+  //     email +
+  //     ", " +
+  //     score +
+  //     ", and" +
+  //     " " +
+  //     hp +
+  //     " to localStorage"
+  // );
+  window.localStorage.setItem("email", email);
+  window.localStorage.setItem("score", score);
+  window.localStorage.setItem("hp", hp);
 };
 
-var drawMap = function() {
-  var x = WIDTH / 2 - Player.list[selfId].x;
-  var y = HEIGHT / 2 - Player.list[selfId].y;
-  ctx.drawImage(Img.map, x, y);
-};
-
-var changemap1 = function() {
+var changemap1 = function () {
   Img.map.src = "/img/map.png";
 };
-var changemap2 = function() {
+var changemap2 = function () {
   Img.map.src = "/img/JupiterMap.png";
 };
-var changemap3 = function() {
+var changemap3 = function () {
   Img.map.src = "/img/SaturnMap.png";
 };
 
-var drawScore = function() {
+var drawScore = function () {
   ctx.fillStyle = "black";
   ctx.fillText(" " + Player.list[selfId].score, 0, 30);
 };
@@ -505,14 +616,14 @@ var drawScore = function() {
 // 	Math.max(...Player.list[i].score(o => o.y), 0);
 // 		console.log(a);
 // }
-document.onkeydown = function(event) {
+document.onkeydown = function (event) {
   if (event.keyCode === 68) {
     //d
     Player.list[selfId].sx += 32;
     Player.list[selfId].sy = 96;
     socket.emit("keyPress", {
       inputId: "right",
-      state: true
+      state: true,
     });
   } else if (event.keyCode === 83) {
     //s
@@ -520,7 +631,7 @@ document.onkeydown = function(event) {
     Player.list[selfId].sy = 0;
     socket.emit("keyPress", {
       inputId: "down",
-      state: true
+      state: true,
     });
   } else if (event.keyCode === 65) {
     //a
@@ -528,7 +639,7 @@ document.onkeydown = function(event) {
     Player.list[selfId].sy = 48;
     socket.emit("keyPress", {
       inputId: "left",
-      state: true
+      state: true,
     });
   } else if (event.keyCode === 87) {
     // w
@@ -536,50 +647,62 @@ document.onkeydown = function(event) {
     Player.list[selfId].sy = 144;
     socket.emit("keyPress", {
       inputId: "up",
-      state: true
+      state: true,
     });
   }
   if (event.keyCode === 32) {
     socket.emit("keyPress", {
       inputId: "attack",
-      state: true
+      state: true,
+    });
+  }
+  if (event.keyCode === 16) {
+    socket.emit("keyPress", {
+      inputId: "sprint",
+      state: true,
     });
   }
 };
-document.onkeyup = function(event) {
+document.onkeyup = function (event) {
   if (event.keyCode === 68) {
     //d
     Player.list[selfId].sx = 0;
     socket.emit("keyPress", {
       inputId: "right",
-      state: false
+      state: false,
     });
   } else if (event.keyCode === 83) {
     //s
     Player.list[selfId].sx = 0;
     socket.emit("keyPress", {
       inputId: "down",
-      state: false
+      state: false,
     });
   } else if (event.keyCode === 65) {
     //a
     Player.list[selfId].sx = 0;
     socket.emit("keyPress", {
       inputId: "left",
-      state: false
+      state: false,
     });
   } else if (event.keyCode === 87) {
     // w
     Player.list[selfId].sx = 0;
     socket.emit("keyPress", {
       inputId: "up",
-      state: false
+      state: false,
     });
   }
   if (event.keyCode === 32) {
     socket.emit("keyPress", {
       inputId: "attack",
-      state: false
+      state: false,
+    });
+  }
+  if (event.keyCode === 16) {
+    socket.emit("keyPress", {
+      inputId: "sprint",
+      state: false,
     });
   }
 };
@@ -596,26 +719,26 @@ document.onkeyup = function(event) {
 // 		state: false
 // 	});
 // }
-document.onmousemove = function(event) {
-  var x = -400 + event.clientX - 8;
-  var y = -400 + event.clientY - 8;
+document.onmousemove = function (event) {
+  var x = -(WIDTH / 2) + event.clientX - 8;
+  var y = -(HEIGHT / 2) + event.clientY - 8;
   var angle = (Math.atan2(y, x) / Math.PI) * 180;
   socket.emit("keyPress", {
     inputId: "mouseAngle",
-    state: angle
+    state: angle,
   });
 };
-var sendIp = function() {
+var sendIp = function () {
   fetch("https://api.ipify.org?format=json")
-    .then(results => results.json())
-    .then(function(data) {
+    .then((results) => results.json())
+    .then(function (data) {
       console.log(data.ip);
       var email = signDivEmail.value;
       fetch(
         `http://ip-api.com/json/${data.ip}?fields=status,message,country,regionName,city`
       )
-        .then(res => res.json())
-        .then(function(geolocation) {
+        .then((res) => res.json())
+        .then(function (geolocation) {
           socket.emit("IP", {
             ip: data.ip,
             email: email,
@@ -623,62 +746,8 @@ var sendIp = function() {
             score: Player.list[selfId].score,
             country: geolocation.country,
             regionName: geolocation.regionName,
-            city: geolocation.city
+            city: geolocation.city,
           });
         });
     });
 };
-
-countdown(300);
-function countdown(seconds) {
-  seconds = parseInt(localStorage.getItem("seconds")) || seconds;
-  matchText.innerHTML = "Match ends in: ";
-  function tick() {
-    seconds--;
-    localStorage.setItem("seconds", seconds);
-    var counter = document.getElementById("timer");
-    var current_minutes = parseInt(seconds / 60);
-    var current_seconds = seconds % 60;
-    counter.innerHTML =
-      current_minutes +
-      ":" +
-      (current_seconds < 10 ? "0" : "") +
-      current_seconds;
-    if (seconds > 0) {
-      setTimeout(tick, 1000);
-    } else if (seconds <= 0) {
-      between(60);
-      match();
-    }
-  }
-  tick();
-}
-
-function between(seconds2) {
-  seconds2 = parseInt(localStorage.getItem("seconds2")) || seconds2;
-  matchText.innerHTML = "Match starts in: ";
-
-  function tick2() {
-    seconds2--;
-    localStorage.setItem("seconds2", seconds2);
-    var counter = document.getElementById("timer");
-    var current_minutes = parseInt(seconds2 / 60);
-    var current_seconds2 = seconds2 % 60;
-    counter.innerHTML =
-      current_minutes +
-      ":" +
-      (current_seconds2 < 10 ? "0" : "") +
-      current_seconds2;
-    if (seconds2 > 0) {
-      setTimeout(tick2, 1000);
-    } else if (seconds2 <= 0) {
-      reset();
-    }
-  }
-  tick2();
-}
-
-function reset() {
-  // countdown(60);
-  countdown(300);
-}

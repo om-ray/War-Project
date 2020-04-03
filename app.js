@@ -27,6 +27,53 @@ app.use("/", express.static(__dirname + "/client"));
 serv.listen(2000);
 console.log("Server started.");
 var SOCKET_LIST = {};
+var current_minutes;
+var current_minutes2;
+var current_seconds;
+var current_seconds2;
+var matchIsEnding = false;
+var betweenMatches = false;
+countdown(300);
+function countdown(seconds) {
+  seconds = seconds;
+
+  function tick() {
+    seconds--;
+    current_minutes = parseInt(seconds / 60);
+    current_seconds = seconds % 60;
+
+    if (seconds > 0) {
+      setTimeout(tick, 1000);
+    } else if (seconds <= 0) {
+      matchIsEnding = true;
+      between(60);
+    }
+  }
+  tick();
+}
+
+function between(seconds2) {
+  seconds2 = seconds2;
+
+  function tick2() {
+    seconds2--;
+    current_minutes2 = parseInt(seconds2 / 60);
+    current_seconds2 = seconds2 % 60;
+    if (seconds2 > 0) {
+      betweenMatches = true;
+      setTimeout(tick2, 1000);
+    } else if (seconds2 <= 0) {
+      betweenMatches = false;
+      reset();
+    }
+  }
+  tick2();
+}
+
+function reset() {
+  // countdown(60);
+  countdown(300);
+}
 
 var Entity = function() {
   var self = {
@@ -58,6 +105,7 @@ var Player = function(id, db_id) {
   self.pressingUp = false;
   self.pressingDown = false;
   self.pressingAttack = false;
+  self.pressingSprint = false;
   self.mouseAngle = 0;
   self.maxSpd = 10;
   self.hp = 100;
@@ -71,6 +119,12 @@ var Player = function(id, db_id) {
 
     if (self.pressingAttack) {
       self.shootBullet(self.mouseAngle);
+    }
+    if (self.pressingSprint) {
+      self.maxSpd = 15;
+    }
+    if (self.pressingSprint == false) {
+      self.maxSpd = 10;
     }
   };
   self.shootBullet = function(angle) {
@@ -119,8 +173,6 @@ Player.list = {};
 Player.onConnect = function(socket, player_db_id) {
   var player = Player(socket.id, player_db_id);
 
-  socket.emit("timer");
-
   console.log("Player " + JSON.stringify(Player) + " joined");
   socket.on("keyPress", function(data) {
     if (data.inputId === "left") player.pressingLeft = data.state;
@@ -128,6 +180,7 @@ Player.onConnect = function(socket, player_db_id) {
     else if (data.inputId === "up") player.pressingUp = data.state;
     else if (data.inputId === "down") player.pressingDown = data.state;
     else if (data.inputId === "attack") player.pressingAttack = data.state;
+    else if (data.inputId === "sprint") player.pressingSprint = data.state;
     else if (data.inputId === "mouseAngle") player.mouseAngle = data.state;
   });
   console.log(player_db_id);
@@ -183,8 +236,8 @@ var Bullet = function(parent, angle) {
             updateScore(shooter);
           }
           p.hp = p.hpMax;
-          p.x = Math.random() * 1800;
-          p.y = Math.random() * 1800;
+          p.x = Math.random() * 1920;
+          p.y = Math.random() * 1080;
         }
         self.toRemove = true;
       }
@@ -312,7 +365,6 @@ var sendVerificationCode = function(data) {
     res.render("contact", { msg: "Email has been sent" });
   });
 };
-var hpDown;
 io.sockets.on("connection", function(socket) {
   socket.id = Math.random();
   SOCKET_LIST[socket.id] = socket;
@@ -439,7 +491,7 @@ io.sockets.on("connection", function(socket) {
           db.progress.find({ email: score[i].email }, function(err, res) {
             var date = new Date();
             console.log(res);
-            if (res) {
+            if (res.length > 0) {
               db.progress.update(
                 {
                   email: score[i].email
@@ -519,7 +571,7 @@ io.sockets.on("connection", function(socket) {
                       socket.emit("signUpResponse", { success: true });
                     }
                   );
-                } else if (res == false) {
+                 } else if (res == false) {
                   socket.emit("signUpResponse", { success: false });
                   console.error;
                 }
@@ -566,69 +618,12 @@ io.sockets.on("connection", function(socket) {
     socket.emit("evalAnswer", res);
   });
 
-  match = function() {
-    socket.emit("match", function() {
-      for (var i in Player.list) {
-        var p = Player.list[i];
-        p.x = 400;
-        p.y = 400;
-      }
-    });
-  };
-  timer = function() {
-    socket.emit("timer");
-  };
+  if (matchIsEnding == true) {
+    socket.emit("match");
+    matchIsEnding = false;
+    betweenMatches = true;
+  }
 });
-// var match;
-var timer;
-setInterval(function() {
-  console.log("match starting!");
-  // match();
-  timer();
-}, 300000);
-
-// function getTimeRemaining(endtime) {
-//   var t = Date.parse(endtime) - Date.parse(new Date());
-//   var seconds = Math.floor((t / 1000) % 60);
-//   var minutes = Math.floor((t / 1000 / 60) % 60);
-//   return {
-//     'total': t,
-//     'minutes': minutes,
-//     'seconds': seconds
-//   };
-// }
-
-// function initializeClock(id, endtime) {
-//   var clock = document.getElementById(id);
-//   var minutesSpan = clock.querySelector('.minutes');
-//   var secondsSpan = clock.querySelector('.seconds');
-
-//   function updateClock() {
-//     var t = getTimeRemaining(endtime);
-
-//     minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
-//     secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
-
-//     if (t.total <= 0) {
-//       clearInterval(timeinterval);
-//     }
-
-//     if (t.minutes == 0 && t.seconds == 0) {
-//       console.log('in this func');
-//       deadline = new Date(deadline.getTime() + 5 * 60000);
-//       initializeClock('clockdiv', deadline);
-//     }
-//   }
-
-//   updateClock();
-//   var timeinterval = setInterval(updateClock, 1000);
-// }
-
-// var deadline = new Date(Date.parse(new Date()));
-// socket.on("timer", function () {
-//   console.log("timer");
-//   initializeClock('clockdiv', deadline);
-// })
 
 var initPack = { player: [], bullet: [] };
 var removePack = { player: [], bullet: [] };
@@ -638,6 +633,18 @@ setInterval(function() {
     player: Player.update(),
     bullet: Bullet.update()
   };
+  if (betweenMatches == false) {
+    io.emit("current time", {
+      minutes: current_minutes,
+      seconds: current_seconds
+    });
+  }
+  if (betweenMatches == true) {
+    io.emit("current time2", {
+      minutes: current_minutes2,
+      seconds: current_seconds2
+    });
+  }
 
   for (var i in SOCKET_LIST) {
     var socket = SOCKET_LIST[i];

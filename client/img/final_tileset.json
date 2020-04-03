@@ -1,0 +1,1100 @@
+{
+  "columns": 11,
+  "image": "final_tileset.jpg",
+  "imageheight": 192,
+  "imagewidth": 352,
+  "margin": 0,
+  "name": "final_tileset",
+  "spacing": 0,
+  "terrains": [
+    {
+      "name": "sand",
+      "tile": 16
+    },
+    {
+      "name": "dirt",
+      "tile": 19
+    },
+    {
+      "name": "grass",
+      "tile": 22
+    },
+    {
+      "name": "sand water",
+      "tile": 61
+    },
+    {
+      "name": "dirt water",
+      "tile": 64
+    },
+    {
+      "name": "grass water",
+      "tile": 67
+    }
+  ],
+  "tilecount": 90,
+  "tiledversion": "1.3.3",
+  "tileheight": 32,
+  "tiles": [
+    {
+      "id": 0,
+      "terrain": [-1, -1, -1, 0]
+    },
+    {
+      "id": 1,
+      "terrain": [-1, -1, 0, 0]
+    },
+    {
+      "id": 2,
+      "terrain": [-1, -1, 0, -1]
+    },
+    {
+      "id": 3,
+      "terrain": [-1, -1, -1, 1]
+    },
+    {
+      "id": 4,
+      "terrain": [-1, -1, 1, 1]
+    },
+    {
+      "id": 5,
+      "terrain": [-1, -1, 1, -1]
+    },
+    {
+      "id": 6,
+      "terrain": [-1, -1, -1, 2]
+    },
+    {
+      "id": 7,
+      "terrain": [-1, -1, 2, 2]
+    },
+    {
+      "id": 8,
+      "terrain": [-1, -1, 2, -1]
+    },
+    {
+      "id": 9,
+      "objectgroup": {
+        "draworder": "index",
+        "id": 3,
+        "name": "",
+        "objects": [
+          {
+            "height": 0,
+            "id": 74,
+            "name": "",
+            "polygon": [
+              {
+                "x": 0,
+                "y": 0
+              },
+              {
+                "x": -13.2465996451804,
+                "y": 14.3820224719101
+              },
+              {
+                "x": -31.886457717327,
+                "y": 14.1927853341218
+              },
+              {
+                "x": -32.1703134240095,
+                "y": -17.9775280898876
+              },
+              {
+                "x": 0.18923713778829,
+                "y": -17.8829095209935
+              }
+            ],
+            "rotation": 0,
+            "type": "",
+            "visible": true,
+            "width": 0,
+            "x": 31.7918391484329,
+            "y": 17.7882909520993
+          }
+        ],
+        "opacity": 1,
+        "type": "objectgroup",
+        "visible": true,
+        "x": 0,
+        "y": 0
+      },
+      "terrain": [-1, -1, -1, 2]
+    },
+    {
+      "id": 10,
+      "objectgroup": {
+        "draworder": "index",
+        "id": 2,
+        "name": "",
+        "objects": [
+          {
+            "height": 0,
+            "id": 1,
+            "name": "",
+            "polygon": [
+              {
+                "x": 0,
+                "y": 0
+              },
+              {
+                "x": 11.8273211117682,
+                "y": 13.2465996451804
+              },
+              {
+                "x": 31.9810762862212,
+                "y": 13.6250739207569
+              },
+              {
+                "x": 31.886457717327,
+                "y": -18.7344766410408
+              },
+              {
+                "x": -0.0946185688941455,
+                "y": -18.7344766410408
+              }
+            ],
+            "rotation": 0,
+            "type": "",
+            "visible": true,
+            "width": 0,
+            "x": 0.0946185688941455,
+            "y": 18.4506209343584
+          }
+        ],
+        "opacity": 1,
+        "type": "objectgroup",
+        "visible": true,
+        "x": 0,
+        "y": 0
+      },
+      "terrain": [-1, -1, 2, -1]
+    },
+    {
+      "id": 11,
+      "terrain": [-1, 0, -1, 0]
+    },
+    {
+      "id": 12,
+      "terrain": [0, 0, 0, 0]
+    },
+    {
+      "id": 13,
+      "terrain": [0, -1, 0, -1]
+    },
+    {
+      "id": 14,
+      "terrain": [-1, 1, -1, 1]
+    },
+    {
+      "id": 15,
+      "terrain": [1, 1, 1, 1]
+    },
+    {
+      "id": 16,
+      "terrain": [1, -1, 1, -1]
+    },
+    {
+      "id": 17,
+      "terrain": [-1, 2, -1, 2]
+    },
+    {
+      "id": 18,
+      "terrain": [2, 2, 2, 2]
+    },
+    {
+      "id": 19,
+      "terrain": [2, -1, 2, -1]
+    },
+    {
+      "id": 20,
+      "objectgroup": {
+        "draworder": "index",
+        "id": 2,
+        "name": "",
+        "objects": [
+          {
+            "height": 0,
+            "id": 1,
+            "name": "",
+            "polygon": [
+              {
+                "x": -0.189237137788293,
+                "y": -0.567711413364873
+              },
+              {
+                "x": 14.6658781785925,
+                "y": 13.2465996451804
+              },
+              {
+                "x": 14.7604967474867,
+                "y": 31.6026020106446
+              },
+              {
+                "x": -17.2205795387345,
+                "y": 31.6972205795387
+              },
+              {
+                "x": -17.2205795387345,
+                "y": -0.473092844470727
+              }
+            ],
+            "rotation": 0,
+            "type": "",
+            "visible": true,
+            "width": 0,
+            "x": 17.1259609698403,
+            "y": 0.283855706682436
+          }
+        ],
+        "opacity": 1,
+        "type": "objectgroup",
+        "visible": true,
+        "x": 0,
+        "y": 0
+      },
+      "terrain": [-1, 2, -1, -1]
+    },
+    {
+      "id": 21,
+      "objectgroup": {
+        "draworder": "index",
+        "id": 2,
+        "name": "",
+        "objects": [
+          {
+            "height": 0,
+            "id": 1,
+            "name": "",
+            "polygon": [
+              {
+                "x": 0,
+                "y": 0
+              },
+              {
+                "x": -12.7735068007096,
+                "y": 11.9219396806623
+              },
+              {
+                "x": -12.4896510940272,
+                "y": 32.0756948551153
+              },
+              {
+                "x": 19.5860437610881,
+                "y": 31.7918391484329
+              },
+              {
+                "x": 19.3968066232998,
+                "y": -0.189237137788291
+              }
+            ],
+            "rotation": 0,
+            "type": "",
+            "visible": true,
+            "width": 0,
+            "x": 12.4896510940272,
+            "y": 0
+          }
+        ],
+        "opacity": 1,
+        "type": "objectgroup",
+        "visible": true,
+        "x": 0,
+        "y": 0
+      },
+      "terrain": [2, -1, -1, -1]
+    },
+    {
+      "id": 22,
+      "terrain": [-1, 0, -1, -1]
+    },
+    {
+      "id": 23,
+      "terrain": [0, 0, -1, -1]
+    },
+    {
+      "id": 24,
+      "terrain": [0, -1, -1, -1]
+    },
+    {
+      "id": 25,
+      "terrain": [-1, 1, -1, -1]
+    },
+    {
+      "id": 26,
+      "terrain": [1, 1, -1, -1]
+    },
+    {
+      "id": 27,
+      "terrain": [1, -1, -1, -1]
+    },
+    {
+      "id": 28,
+      "terrain": [-1, 2, -1, -1]
+    },
+    {
+      "id": 29,
+      "terrain": [2, 2, -1, -1]
+    },
+    {
+      "id": 30,
+      "terrain": [2, -1, -1, -1]
+    },
+    {
+      "id": 31,
+      "objectgroup": {
+        "draworder": "index",
+        "id": 2,
+        "name": "",
+        "objects": [
+          {
+            "height": 0,
+            "id": 1,
+            "name": "",
+            "polygon": [
+              {
+                "x": 0.473092844470731,
+                "y": 0.0946185688941448
+              },
+              {
+                "x": -10.7865168539326,
+                "y": 12.9627439384979
+              },
+              {
+                "x": -31.7918391484329,
+                "y": 12.8681253696038
+              },
+              {
+                "x": -31.7918391484329,
+                "y": -19.5860437610881
+              },
+              {
+                "x": 0.567711413364872,
+                "y": -19.491425192194
+              }
+            ],
+            "rotation": 0,
+            "type": "",
+            "visible": true,
+            "width": 0,
+            "x": 31.6026020106446,
+            "y": 19.2075694855115
+          }
+        ],
+        "opacity": 1,
+        "type": "objectgroup",
+        "visible": true,
+        "x": 0,
+        "y": 0
+      },
+      "terrain": [3, 3, 3, 0]
+    },
+    {
+      "id": 32,
+      "objectgroup": {
+        "draworder": "index",
+        "id": 2,
+        "name": "",
+        "objects": [
+          {
+            "height": 0,
+            "id": 1,
+            "name": "",
+            "polygon": [
+              {
+                "x": 0,
+                "y": 0
+              },
+              {
+                "x": 10.3134240094619,
+                "y": 11.9219396806623
+              },
+              {
+                "x": 32.1703134240095,
+                "y": 12.1111768184506
+              },
+              {
+                "x": 32.1703134240095,
+                "y": -20.3429923122413
+              },
+              {
+                "x": -0.473092844470727,
+                "y": -20.153755174453
+              }
+            ],
+            "rotation": 0,
+            "type": "",
+            "visible": true,
+            "width": 0,
+            "x": 0,
+            "y": 19.8698994677706
+          }
+        ],
+        "opacity": 1,
+        "type": "objectgroup",
+        "visible": true,
+        "x": 0,
+        "y": 0
+      },
+      "terrain": [3, 3, 0, 3]
+    },
+    {
+      "id": 33,
+      "objectgroup": {
+        "draworder": "index",
+        "id": 3,
+        "name": "",
+        "objects": [
+          {
+            "height": 0,
+            "id": 4,
+            "name": "",
+            "rotation": 0,
+            "type": "",
+            "visible": true,
+            "width": 0,
+            "x": 21.9515079834418,
+            "y": 22.0461265523359
+          }
+        ],
+        "opacity": 1,
+        "type": "objectgroup",
+        "visible": true,
+        "x": 0,
+        "y": 0
+      },
+      "terrain": [0, 0, 0, 3]
+    },
+    {
+      "id": 34,
+      "objectgroup": {
+        "draworder": "index",
+        "id": 2,
+        "name": "",
+        "objects": [
+          {
+            "height": 13.0573625073921,
+            "id": 1,
+            "name": "",
+            "rotation": 0,
+            "type": "",
+            "visible": true,
+            "width": 31.9810762862212,
+            "x": 0,
+            "y": -0.0946185688941455
+          }
+        ],
+        "opacity": 1,
+        "type": "objectgroup",
+        "visible": true,
+        "x": 0,
+        "y": 0
+      },
+      "terrain": [0, 0, 3, 3]
+    },
+    {
+      "id": 35,
+      "objectgroup": {
+        "draworder": "index",
+        "id": 4,
+        "name": "",
+        "objects": [
+          {
+            "height": 0,
+            "id": 13,
+            "name": "",
+            "rotation": 0,
+            "type": "",
+            "visible": true,
+            "width": 0,
+            "x": 10.0295683027794,
+            "y": 21.9515079834418
+          }
+        ],
+        "opacity": 1,
+        "type": "objectgroup",
+        "visible": true,
+        "x": 0,
+        "y": 0
+      },
+      "terrain": [0, 0, 3, 0]
+    },
+    {
+      "id": 36,
+      "objectgroup": {
+        "draworder": "index",
+        "id": 2,
+        "name": "",
+        "objects": [
+          {
+            "height": 0,
+            "id": 1,
+            "name": "",
+            "rotation": 0,
+            "type": "",
+            "visible": true,
+            "width": 0,
+            "x": 21.9515079834418,
+            "y": 21.8568894145476
+          }
+        ],
+        "opacity": 1,
+        "type": "objectgroup",
+        "visible": true,
+        "x": 0,
+        "y": 0
+      },
+      "terrain": [1, 1, 1, 4]
+    },
+    {
+      "id": 37,
+      "terrain": [1, 1, 4, 4]
+    },
+    {
+      "id": 38,
+      "objectgroup": {
+        "draworder": "index",
+        "id": 2,
+        "name": "",
+        "objects": [
+          {
+            "height": 0,
+            "id": 1,
+            "name": "",
+            "rotation": 0,
+            "type": "",
+            "visible": true,
+            "width": 0,
+            "x": 10.1241868716736,
+            "y": 21.9515079834418
+          }
+        ],
+        "opacity": 1,
+        "type": "objectgroup",
+        "visible": true,
+        "x": 0,
+        "y": 0
+      },
+      "terrain": [1, 1, 4, 1]
+    },
+    {
+      "id": 39,
+      "terrain": [2, 2, 2, -1]
+    },
+    {
+      "id": 40,
+      "terrain": [2, 2, -1, -1]
+    },
+    {
+      "id": 41,
+      "terrain": [2, 2, -1, 2]
+    },
+    {
+      "id": 42,
+      "objectgroup": {
+        "draworder": "index",
+        "id": 2,
+        "name": "",
+        "objects": [
+          {
+            "height": 0,
+            "id": 1,
+            "name": "",
+            "polygon": [
+              {
+                "x": 0.851567120047307,
+                "y": -0.283855706682436
+              },
+              {
+                "x": 13.0573625073921,
+                "y": 12.8681253696038
+              },
+              {
+                "x": 13.1519810762862,
+                "y": 31.9810762862212
+              },
+              {
+                "x": -19.1129509166174,
+                "y": 31.886457717327
+              },
+              {
+                "x": -18.6398580721467,
+                "y": -4.16333634234434e-17
+              }
+            ],
+            "rotation": 0,
+            "type": "",
+            "visible": true,
+            "width": 0,
+            "x": 18.829095209935,
+            "y": 0.0946185688941455
+          }
+        ],
+        "opacity": 1,
+        "type": "objectgroup",
+        "visible": true,
+        "x": 0,
+        "y": 0
+      },
+      "terrain": [3, 0, 3, 3]
+    },
+    {
+      "id": 43,
+      "objectgroup": {
+        "draworder": "index",
+        "id": 2,
+        "name": "",
+        "objects": [
+          {
+            "height": 0,
+            "id": 1,
+            "name": "",
+            "polygon": [
+              {
+                "x": 0,
+                "y": 0
+              },
+              {
+                "x": -12.3950325251331,
+                "y": 14.3820224719101
+              },
+              {
+                "x": -12.1111768184506,
+                "y": 32.0756948551153
+              },
+              {
+                "x": 20.0591366055588,
+                "y": 32.1703134240095
+              },
+              {
+                "x": 20.0591366055588,
+                "y": -0.0946185688941455
+              }
+            ],
+            "rotation": 0,
+            "type": "",
+            "visible": true,
+            "width": 0,
+            "x": 12.0165582495565,
+            "y": 0
+          }
+        ],
+        "opacity": 1,
+        "type": "objectgroup",
+        "visible": true,
+        "x": 0,
+        "y": 0
+      },
+      "terrain": [0, 3, 3, 3]
+    },
+    {
+      "id": 44,
+      "objectgroup": {
+        "draworder": "index",
+        "id": 2,
+        "name": "",
+        "objects": [
+          {
+            "height": 31.7918391484329,
+            "id": 1,
+            "name": "",
+            "rotation": 0,
+            "type": "",
+            "visible": true,
+            "width": 13.0573625073921,
+            "x": -0.0946185688941455,
+            "y": 0
+          }
+        ],
+        "opacity": 1,
+        "type": "objectgroup",
+        "visible": true,
+        "x": 0,
+        "y": 0
+      },
+      "terrain": [0, 3, 0, 3]
+    },
+    {
+      "id": 45,
+      "objectgroup": {
+        "draworder": "index",
+        "id": 2,
+        "name": "",
+        "objects": [
+          {
+            "height": 31.886457717327,
+            "id": 1,
+            "name": "",
+            "rotation": 0,
+            "type": "",
+            "visible": true,
+            "width": 31.9810762862212,
+            "x": 0,
+            "y": 0.0946185688941455
+          }
+        ],
+        "opacity": 1,
+        "type": "objectgroup",
+        "visible": true,
+        "x": 0,
+        "y": 0
+      },
+      "terrain": [3, 3, 3, 3]
+    },
+    {
+      "id": 46,
+      "objectgroup": {
+        "draworder": "index",
+        "id": 2,
+        "name": "",
+        "objects": [
+          {
+            "height": 32.2649319929036,
+            "id": 1,
+            "name": "",
+            "rotation": 0,
+            "type": "",
+            "visible": true,
+            "width": 13.0573625073921,
+            "x": 18.9237137788291,
+            "y": -0.18923713778829
+          }
+        ],
+        "opacity": 1,
+        "type": "objectgroup",
+        "visible": true,
+        "x": 0,
+        "y": 0
+      },
+      "terrain": [3, 0, 3, 0]
+    },
+    {
+      "id": 47,
+      "terrain": [1, 4, 1, 4]
+    },
+    {
+      "id": 48,
+      "terrain": [4, 4, 4, 4]
+    },
+    {
+      "id": 49,
+      "terrain": [4, 1, 4, 1]
+    },
+    {
+      "id": 50,
+      "terrain": [2, 5, 2, 5]
+    },
+    {
+      "id": 51,
+      "terrain": [5, 5, 5, 5]
+    },
+    {
+      "id": 52,
+      "terrain": [5, 2, 5, 2]
+    },
+    {
+      "id": 53,
+      "objectgroup": {
+        "draworder": "index",
+        "id": 2,
+        "name": "",
+        "objects": [
+          {
+            "height": 0,
+            "id": 1,
+            "name": "",
+            "polygon": [
+              {
+                "x": 0,
+                "y": 0
+              },
+              {
+                "x": -14.0981667652277,
+                "y": 12.8681253696038
+              },
+              {
+                "x": -32.1703134240095,
+                "y": 12.7735068007096
+              },
+              {
+                "x": -32.1703134240095,
+                "y": -19.3968066232998
+              },
+              {
+                "x": 0,
+                "y": -19.6806623299823
+              }
+            ],
+            "rotation": 0,
+            "type": "",
+            "visible": true,
+            "width": 0,
+            "x": 32.1703134240095,
+            "y": 19.3968066232998
+          }
+        ],
+        "opacity": 1,
+        "type": "objectgroup",
+        "visible": true,
+        "x": 0,
+        "y": 0
+      },
+      "terrain": [4, 4, 4, 1]
+    },
+    {
+      "id": 54,
+      "objectgroup": {
+        "draworder": "index",
+        "id": 2,
+        "name": "",
+        "objects": [
+          {
+            "height": 0,
+            "id": 1,
+            "name": "",
+            "polygon": [
+              {
+                "x": 0,
+                "y": 0
+              },
+              {
+                "x": 12.6788882318155,
+                "y": 13.2465996451804
+              },
+              {
+                "x": 32.2649319929036,
+                "y": 13.0573625073921
+              },
+              {
+                "x": 32.3595505617978,
+                "y": -19.3021880544057
+              },
+              {
+                "x": 0.0946185688941455,
+                "y": -19.1129509166174
+              }
+            ],
+            "rotation": 0,
+            "type": "",
+            "visible": true,
+            "width": 0,
+            "x": -0.283855706682436,
+            "y": 18.829095209935
+          }
+        ],
+        "opacity": 1,
+        "type": "objectgroup",
+        "visible": true,
+        "x": 0,
+        "y": 0
+      },
+      "terrain": [4, 4, 1, 4]
+    },
+    {
+      "id": 55,
+      "objectgroup": {
+        "draworder": "index",
+        "id": 2,
+        "name": "",
+        "objects": [
+          {
+            "height": 0,
+            "id": 1,
+            "name": "",
+            "rotation": 0,
+            "type": "",
+            "visible": true,
+            "width": 0,
+            "x": 21.9515079834418,
+            "y": 9.93494973388528
+          }
+        ],
+        "opacity": 1,
+        "type": "objectgroup",
+        "visible": true,
+        "x": 0,
+        "y": 0
+      },
+      "terrain": [0, 3, 0, 0]
+    },
+    {
+      "id": 56,
+      "objectgroup": {
+        "draworder": "index",
+        "id": 4,
+        "name": "",
+        "objects": [
+          {
+            "height": 13.0573625073921,
+            "id": 3,
+            "name": "",
+            "rotation": 0,
+            "type": "",
+            "visible": true,
+            "width": 31.9810762862212,
+            "x": 0,
+            "y": 18.9237137788291
+          }
+        ],
+        "opacity": 1,
+        "type": "objectgroup",
+        "visible": true,
+        "x": 0,
+        "y": 0
+      },
+      "terrain": [3, 3, 0, 0]
+    },
+    {
+      "id": 57,
+      "objectgroup": {
+        "draworder": "index",
+        "id": 2,
+        "name": "",
+        "objects": [
+          {
+            "height": 0,
+            "id": 1,
+            "name": "",
+            "rotation": 0,
+            "type": "",
+            "visible": true,
+            "width": 0,
+            "x": 9.93494973388528,
+            "y": 10.0295683027794
+          }
+        ],
+        "opacity": 1,
+        "type": "objectgroup",
+        "visible": true,
+        "x": 0,
+        "y": 0
+      },
+      "terrain": [3, 0, 0, 0]
+    },
+    {
+      "id": 58,
+      "terrain": [1, 4, 1, 1]
+    },
+    {
+      "id": 59,
+      "terrain": [4, 4, 1, 1]
+    },
+    {
+      "id": 60,
+      "terrain": [4, 1, 1, 1]
+    },
+    {
+      "id": 61,
+      "terrain": [2, 5, 2, 2]
+    },
+    {
+      "id": 62,
+      "terrain": [5, 5, 2, 2]
+    },
+    {
+      "id": 63,
+      "terrain": [5, 2, 2, 2]
+    },
+    {
+      "id": 64,
+      "objectgroup": {
+        "draworder": "index",
+        "id": 2,
+        "name": "",
+        "objects": [
+          {
+            "height": 0,
+            "id": 1,
+            "name": "",
+            "polygon": [
+              {
+                "x": 0,
+                "y": 0
+              },
+              {
+                "x": 13.0573625073921,
+                "y": 14.7604967474867
+              },
+              {
+                "x": 13.3412182140745,
+                "y": 32.1703134240095
+              },
+              {
+                "x": -18.3560023654642,
+                "y": 32.3595505617978
+              },
+              {
+                "x": -18.4506209343584,
+                "y": -0.378474275576582
+              }
+            ],
+            "rotation": 0,
+            "type": "",
+            "visible": true,
+            "width": 0,
+            "x": 18.5452395032525,
+            "y": -0.378474275576582
+          }
+        ],
+        "opacity": 1,
+        "type": "objectgroup",
+        "visible": true,
+        "x": 0,
+        "y": 0
+      },
+      "terrain": [4, 1, 4, 4]
+    },
+    {
+      "id": 65,
+      "objectgroup": {
+        "draworder": "index",
+        "id": 2,
+        "name": "",
+        "objects": [
+          {
+            "height": 0,
+            "id": 1,
+            "name": "",
+            "polygon": [
+              {
+                "x": 0,
+                "y": 0
+              },
+              {
+                "x": -14.4766410408043,
+                "y": 13.7196924896511
+              },
+              {
+                "x": -14.1927853341218,
+                "y": 32.1703134240095
+              },
+              {
+                "x": 18.3560023654642,
+                "y": 32.548787699586
+              },
+              {
+                "x": 17.8829095209935,
+                "y": 0
+              }
+            ],
+            "rotation": 0,
+            "type": "",
+            "visible": true,
+            "width": 0,
+            "x": 14.287403903016,
+            "y": -0.378474275576582
+          }
+        ],
+        "opacity": 1,
+        "type": "objectgroup",
+        "visible": true,
+        "x": 0,
+        "y": 0
+      },
+      "terrain": [1, 4, 4, 4]
+    }
+  ],
+  "tilewidth": 32,
+  "type": "tileset",
+  "version": 1.2
+}
